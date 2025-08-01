@@ -9,7 +9,14 @@ const experiences = [
     responsibilities: [
       "Developed a conversational AI assistant using AWS Lambda, API Gateway, DynamoDB, and integrated Chatbase and Twilio for messaging",
       "Built secure authentication systems using Google and Apple ID",
-      "Designed and implemented serverless backend architecture with data persistence and analytics"
+      "Designed and implemented serverless backend architecture with data persistence and analytics",
+      "Architected and developed MKT by Rita (mkt.ritaxyz.com) - a comprehensive B2B marketplace platform connecting diverse small businesses with customers",
+      "Built responsive web application with advanced filtering capabilities by category and location, supporting business discovery and community engagement",
+      "Implemented secure user authentication and business registration system with role-based access control for customers and business owners",
+      "Developed scalable backend infrastructure handling business listings, collections, events management, and user account systems",
+      "Created intuitive UX/UI design with modern web standards, mobile-responsive layout, and accessibility best practices",
+      "Integrated social media connectivity and implemented SEO optimization strategies for enhanced online visibility",
+      "Established CI/CD pipeline and deployment processes ensuring reliable platform performance and scalability for growing user base"
     ]
   },
   {
