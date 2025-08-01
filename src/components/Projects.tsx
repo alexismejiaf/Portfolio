@@ -1,5 +1,12 @@
 const projects = [
   {
+    title: "MKT by Rita - Small Business Marketplace",
+    description: "Developed a comprehensive marketplace platform connecting diverse small businesses with customers. Features business registration, collections, events, and community discovery.",
+    technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Supabase", "Vercel"],
+    category: "Full-Stack Web",
+    link: "https://mkt-by-rita.vercel.app/"
+  },
+  {
     title: "AI Tetris with Computer Vision",
     description: "Created an AI-controlled Tetris using Python and OpenCV, enabling play via gesture recognition.",
     technologies: ["Python", "OpenCV", "Computer Vision", "AI"],
@@ -78,6 +85,19 @@ export default function Projects() {
                   ))}
                 </div>
               </div>
+              
+              {project.link && (
+                <div className="mt-4">
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors"
+                  >
+                    Visit Live Site →
+                  </a>
+                </div>
+              )}
             </div>
           ))}
         </div>
