@@ -13,7 +13,7 @@ const contactItems = [
   },
   {
     label: "Phone",
-    value: "+504 9842 8161",
+    value: "+504 98428161",
     icon: PhoneIcon,
     href: "tel:+50498428161",
   },
@@ -30,18 +30,25 @@ const contactItems = [
     href: "https://linkedin.com/in/alexismejiaf",
     external: true,
   },
+  {
+    label: "GitHub",
+    value: "github.com/alexismejiaf",
+    icon: ArrowTopRightOnSquareIcon,
+    href: "https://github.com/alexismejiaf",
+    external: true,
+  },
 ];
 
 export default function Contact() {
   return (
-    <section id="contact" className="relative">
-      <div className="absolute inset-x-0 top-0 -z-10 h-32 bg-gradient-to-b from-sky-500/15 to-transparent blur-3xl" />
+    <section id="contact" className="relative" aria-labelledby="contact-heading">
+      <div className="absolute inset-x-0 top-0 -z-10 h-32 bg-gradient-to-b from-sky-500/15 to-transparent blur-3xl" aria-hidden="true" />
       <div className="mx-auto max-w-6xl px-4 py-24 sm:px-6 lg:px-8">
         <div className="text-center">
           <span className="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.4em] text-slate-200">
             Contact
           </span>
-          <h2 className="mt-6 text-3xl font-semibold text-white sm:text-4xl">
+          <h2 className="mt-6 text-3xl font-semibold text-white sm:text-4xl" id="contact-heading">
             Let&apos;s build the next milestone together.
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base text-slate-300 sm:text-lg">
@@ -76,7 +83,8 @@ export default function Contact() {
                       href={item.href}
                       target={item.external ? "_blank" : undefined}
                       rel={item.external ? "noopener noreferrer" : undefined}
-                      className="flex items-center gap-3 rounded-2xl border border-white/10 bg-slate-950/40 px-4 py-4 text-slate-200 transition hover:border-white/30 hover:bg-slate-900/50"
+                      className="flex items-center gap-3 rounded-2xl border border-white/10 bg-slate-950/40 px-4 py-4 text-slate-200 transition-all hover:scale-[1.02] hover:border-white/30 hover:bg-slate-900/50"
+                      aria-label={`Contact via ${item.label}`}
                     >
                       {content}
                     </a>
@@ -98,13 +106,13 @@ export default function Contact() {
           <div className="flex flex-col justify-between gap-6 rounded-3xl border border-white/10 bg-gradient-to-br from-white/10 via-white/5 to-transparent p-8 text-sm text-slate-200 shadow-lg shadow-sky-500/10 backdrop-blur">
             <div>
               <p className="text-base font-semibold text-white">
-                Project-ready mindset
+                Recent graduate, proven professional impact
               </p>
               <p className="mt-3 leading-relaxed">
-                I thrive in collaborative settings, pairing closely with founders,
-                designers, and platform teams to ship impactful features quickly.
-                Let&apos;s outline a roadmap, audit an existing system, or spin up
-                a proof of concept.
+                Graduated in 2024 with immediate contributions at Rita Group and Sumadi. 
+                I bring fresh perspectives combined with hands-on experience building 
+                scalable systems. Ready to collaborate with founders, designers, and 
+                platform teams to ship features that matter.
               </p>
             </div>
             <div className="rounded-2xl border border-dashed border-white/20 bg-slate-950/40 px-6 py-5 text-sm text-slate-300">

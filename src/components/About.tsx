@@ -4,6 +4,7 @@ import {
   GlobeAltIcon,
   SparklesIcon,
 } from "@heroicons/react/24/outline";
+import AnimatedSection from "./AnimatedSection";
 
 const highlights = [
   "Designing secure, scalable systems with a human-centered experience",
@@ -13,17 +14,17 @@ const highlights = [
 
 export default function About() {
   return (
-    <section id="about" className="relative">
-      <div className="absolute inset-x-0 top-0 -z-10 h-32 bg-gradient-to-b from-white/5 to-transparent blur-3xl" />
+    <section id="about" className="relative" aria-labelledby="about-heading">
+      <div className="absolute inset-x-0 top-0 -z-10 h-32 bg-gradient-to-b from-white/5 to-transparent blur-3xl" aria-hidden="true" />
       <div className="mx-auto max-w-6xl px-4 py-24 sm:px-6 lg:px-8">
         <div className="space-y-6 text-center sm:space-y-7">
-          <span className="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.4em] text-slate-200">
+          <span className="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.4em] text-slate-200 opacity-0 animate-fade-in">
             About
           </span>
-          <h2 className="text-3xl font-semibold text-white sm:text-4xl">
+          <h2 className="text-3xl font-semibold text-white sm:text-4xl opacity-0 animate-fade-in delay-200" id="about-heading">
             Building meaningful experiences with thoughtful engineering.
           </h2>
-          <p className="mx-auto max-w-2xl text-base text-slate-300 sm:text-lg">
+          <p className="mx-auto max-w-2xl text-base text-slate-300 sm:text-lg opacity-0 animate-fade-in delay-300">
             I&apos;m a Tegucigalpa-based software developer and network engineer
             who thrives at the intersection of cloud, automation, and user-first
             interfaces. From rapid prototypes to production systems, I bring a
@@ -33,7 +34,8 @@ export default function About() {
 
         <div className="mt-16 grid gap-12 lg:grid-cols-[1.2fr_0.8fr]">
           <div className="space-y-8">
-            <div className="rounded-3xl border border-white/10 bg-white/5 p-8 shadow-xl shadow-sky-500/10 backdrop-blur">
+            <AnimatedSection animation="slide-in-left" delay={400}>
+              <div className="rounded-3xl border border-white/10 bg-white/5 p-8 shadow-xl shadow-sky-500/10 backdrop-blur">
               <span className="inline-flex items-center gap-2 text-sm font-semibold text-sky-300">
                 <SparklesIcon className="h-4 w-4" />
                 What drives me
@@ -47,9 +49,11 @@ export default function About() {
                 ))}
               </ul>
             </div>
+            </AnimatedSection>
 
             <div className="grid gap-6 md:grid-cols-2">
-              <div className="rounded-2xl border border-white/10 bg-slate-950/40 p-6">
+              <AnimatedSection animation="scale-in" delay={500}>
+                <div className="rounded-2xl border border-white/10 bg-slate-950/40 p-6">
                 <div className="flex items-center gap-3 text-slate-300">
                   <AcademicCapIcon className="h-6 w-6 text-sky-300" />
                   <div>
@@ -63,11 +67,14 @@ export default function About() {
                 </div>
                 <div className="mt-4 space-y-1 text-sm text-slate-300">
                   <p>Universidad Tecnológica Centroamericana - UNITEC</p>
-                  <p>Tegucigalpa, Honduras - 2023</p>
+                  <p>Tegucigalpa, Honduras</p>
+                  <p className="text-slate-400">2015 - 2024 (Graduated)</p>
                 </div>
               </div>
+              </AnimatedSection>
 
-              <div className="rounded-2xl border border-white/10 bg-slate-950/40 p-6">
+              <AnimatedSection animation="scale-in" delay={600}>
+                <div className="rounded-2xl border border-white/10 bg-slate-950/40 p-6">
                 <div className="flex items-center gap-3 text-slate-300">
                   <CheckBadgeIcon className="h-6 w-6 text-sky-300" />
                   <div>
@@ -75,20 +82,22 @@ export default function About() {
                       Certification
                     </p>
                     <p className="text-base font-semibold text-white">
-                      Cisco Certified Network Associate
+                      Cisco Certified Network Associate (CCNA)
                     </p>
                   </div>
                 </div>
                 <p className="mt-4 text-sm text-slate-300">
-                  Deep grounding in networking, routing, and security best
+                  Obtained: 2023 | Deep grounding in networking, routing, and security best
                   practices that inform every architecture decision.
                 </p>
               </div>
+              </AnimatedSection>
             </div>
           </div>
 
           <div className="space-y-6">
-            <div className="rounded-3xl border border-white/10 bg-gradient-to-b from-white/8 to-white/3 p-8 shadow-lg shadow-indigo-500/10 backdrop-blur">
+            <AnimatedSection animation="slide-in-right" delay={500}>
+              <div className="rounded-3xl border border-white/10 bg-gradient-to-b from-white/8 to-white/3 p-8 shadow-lg shadow-indigo-500/10 backdrop-blur">
               <span className="inline-flex items-center gap-2 text-sm font-semibold text-sky-300">
                 <GlobeAltIcon className="h-5 w-5" />
                 Languages
@@ -114,8 +123,10 @@ export default function About() {
                 </div>
               </div>
             </div>
+            </AnimatedSection>
 
-            <div className="rounded-3xl border border-dashed border-white/10 bg-white/5 p-8 text-sm text-slate-300">
+            <AnimatedSection animation="fade-in" delay={700}>
+              <div className="rounded-3xl border border-dashed border-white/10 bg-white/5 p-8 text-sm text-slate-300">
               <p className="text-base font-semibold text-white">
                 Outside the IDE
               </p>
@@ -125,6 +136,7 @@ export default function About() {
                 Latin America.
               </p>
             </div>
+            </AnimatedSection>
           </div>
         </div>
       </div>

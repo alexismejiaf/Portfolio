@@ -15,7 +15,7 @@ export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-slate-950/70 backdrop-blur-xl">
+    <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-slate-950/70 backdrop-blur-xl" aria-label="Main navigation">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
@@ -44,12 +44,23 @@ export default function Navigation() {
                 </a>
               ))}
             </div>
-            <a
-              href="#contact"
-              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-sky-500 via-indigo-500 to-blue-600 px-5 py-2 text-sm font-semibold text-white shadow-lg shadow-indigo-500/30 transition-all hover:shadow-indigo-500/50"
-            >
-              Let&apos;s talk
-            </a>
+            <div className="flex items-center gap-3">
+              <a
+                href="https://github.com/alexismejiaf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-2 text-sm font-semibold text-slate-200 transition-all hover:scale-105 hover:border-white/40 hover:text-white"
+                aria-label="GitHub Profile"
+              >
+                GitHub
+              </a>
+              <a
+                href="#contact"
+                className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-sky-500 via-indigo-500 to-blue-600 px-5 py-2 text-sm font-semibold text-white shadow-lg shadow-indigo-500/30 transition-all hover:scale-105 hover:shadow-indigo-500/50"
+              >
+                Let&apos;s talk
+              </a>
+            </div>
           </div>
 
           {/* Mobile menu button */}
@@ -83,6 +94,15 @@ export default function Navigation() {
                 {item.name}
               </a>
             ))}
+            <a
+              href="https://github.com/alexismejiaf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block rounded-lg px-3 py-2 text-sm font-medium text-slate-300 transition hover:bg-white/5 hover:text-white"
+              onClick={() => setIsOpen(false)}
+            >
+              GitHub
+            </a>
             <a
               href="#contact"
               className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-sky-500 via-indigo-500 to-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-indigo-500/30"
