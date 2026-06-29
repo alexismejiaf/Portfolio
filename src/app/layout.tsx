@@ -8,7 +8,7 @@ const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://portfolio-bryan-mejia.vercel.app"),
+  metadataBase: new URL("https://portfolio-alexis-mejia.vercel.app"),
   title: "Bryan Alexis Mejía Fonseca — Software Developer",
   description:
     "Software developer with 2+ years building serverless cloud systems, full-stack web apps, and automation pipelines. AWS, FastAPI, Python, C#/.NET, Playwright. CCNA certified.",
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
       "Serverless cloud, full-stack web, and automation pipelines. 2+ years professional experience.",
     type: "website",
     locale: "en_US",
-    url: "https://portfolio-bryan-mejia.vercel.app",
+    url: "https://portfolio-alexis-mejia.vercel.app",
     siteName: "Bryan Mejía — Portfolio",
   },
   twitter: {
@@ -63,7 +63,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
               "@type": "Person",
               name: "Bryan Alexis Mejía Fonseca",
               jobTitle: "Software Developer",
-              url: "https://portfolio-bryan-mejia.vercel.app",
+              url: "https://portfolio-alexis-mejia.vercel.app",
               email: "bryamejia@gmail.com",
               address: { "@type": "PostalAddress", addressLocality: "Tegucigalpa", addressCountry: "HN" },
               sameAs: ["https://github.com/alexismejiaf", "https://linkedin.com/in/alexismejiaf"],
