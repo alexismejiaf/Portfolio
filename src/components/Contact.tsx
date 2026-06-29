@@ -1,132 +1,91 @@
-import {
-  ArrowTopRightOnSquareIcon,
-  EnvelopeIcon,
-  MapPinIcon,
-  PhoneIcon,
-} from "@heroicons/react/24/outline";
+import { ArrowTopRightOnSquareIcon, EnvelopeIcon, MapPinIcon, PhoneIcon } from "@heroicons/react/24/outline";
+import GlassCard from "./ui/GlassCard";
+import Reveal from "./ui/Reveal";
+import { profile } from "@/data/profile";
 
-const contactItems = [
-  {
-    label: "Location",
-    value: "Tegucigalpa, Honduras",
-    icon: MapPinIcon,
-  },
-  {
-    label: "Phone",
-    value: "+504 98428161",
-    icon: PhoneIcon,
-    href: "tel:+50498428161",
-  },
-  {
-    label: "Email",
-    value: "bryamejia@gmail.com",
-    icon: EnvelopeIcon,
-    href: "mailto:bryamejia@gmail.com",
-  },
-  {
-    label: "LinkedIn",
-    value: "linkedin.com/in/alexismejiaf",
-    icon: ArrowTopRightOnSquareIcon,
-    href: "https://linkedin.com/in/alexismejiaf",
-    external: true,
-  },
-  {
-    label: "GitHub",
-    value: "github.com/alexismejiaf",
-    icon: ArrowTopRightOnSquareIcon,
-    href: "https://github.com/alexismejiaf",
-    external: true,
-  },
+const items = [
+  { label: "Location", value: profile.location, icon: MapPinIcon },
+  { label: "Phone", value: profile.phone, icon: PhoneIcon, href: profile.phoneHref },
+  { label: "Email", value: profile.email, icon: EnvelopeIcon, href: `mailto:${profile.email}` },
+  { label: "LinkedIn", value: "linkedin.com/in/alexismejiaf", icon: ArrowTopRightOnSquareIcon, href: profile.links.linkedin, external: true },
+  { label: "GitHub", value: "github.com/alexismejiaf", icon: ArrowTopRightOnSquareIcon, href: profile.links.github, external: true },
 ];
 
 export default function Contact() {
   return (
     <section id="contact" className="relative" aria-labelledby="contact-heading">
-      <div className="absolute inset-x-0 top-0 -z-10 h-32 bg-gradient-to-b from-sky-500/15 to-transparent blur-3xl" aria-hidden="true" />
-      <div className="mx-auto max-w-6xl px-4 py-24 sm:px-6 lg:px-8">
-        <div className="text-center">
-          <span className="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.4em] text-slate-200">
+      <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
+        <Reveal className="text-center">
+          <span className="glass inline-flex rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.4em] text-text-muted">
             Contact
           </span>
-          <h2 className="mt-6 text-3xl font-semibold text-white sm:text-4xl" id="contact-heading">
+          <h2 id="contact-heading" className="mt-6 text-3xl font-semibold text-text sm:text-4xl">
             Let&apos;s build the next milestone together.
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-base text-slate-300 sm:text-lg">
-            Whether you need strategic engineering support or a partner for your
-            next product launch, I&apos;m ready for the conversation.
+          <p className="mx-auto mt-4 max-w-2xl text-base text-text-muted sm:text-lg">
+            Open to full-time, freelance, and remote-first collaborations.
           </p>
-        </div>
+        </Reveal>
 
-        <div className="mt-16 grid gap-10 lg:grid-cols-[0.55fr_0.45fr]">
-          <div className="rounded-3xl border border-white/10 bg-white/5 p-8 shadow-xl shadow-indigo-500/10 backdrop-blur">
-            <div className="space-y-6">
-              {contactItems.map((item) => {
-                const Icon = item.icon;
-                const content = (
-                  <>
-                    <Icon className="h-5 w-5 flex-none text-sky-300" />
-                    <div>
-                      <p className="text-xs uppercase tracking-wider text-slate-400">
-                        {item.label}
-                      </p>
-                      <p className="text-sm font-semibold text-white sm:text-base">
-                        {item.value}
-                      </p>
-                    </div>
-                  </>
-                );
-
-                if (item.href) {
-                  return (
+        <div className="mt-14 grid gap-8 lg:grid-cols-[0.55fr_0.45fr]">
+          <Reveal>
+            <GlassCard className="p-8">
+              <div className="space-y-4">
+                {items.map((item) => {
+                  const Icon = item.icon;
+                  const inner = (
+                    <>
+                      <Icon className="h-5 w-5 flex-none text-text" aria-hidden="true" />
+                      <div>
+                        <p className="text-xs uppercase tracking-wider text-text-muted">{item.label}</p>
+                        <p className="text-sm font-semibold text-text">{item.value}</p>
+                      </div>
+                    </>
+                  );
+                  return item.href ? (
                     <a
                       key={item.label}
                       href={item.href}
                       target={item.external ? "_blank" : undefined}
                       rel={item.external ? "noopener noreferrer" : undefined}
-                      className="flex items-center gap-3 rounded-2xl border border-white/10 bg-slate-950/40 px-4 py-4 text-slate-200 transition-all hover:scale-[1.02] hover:border-white/30 hover:bg-slate-900/50"
-                      aria-label={`Contact via ${item.label}`}
+                      className="glass glass-interactive flex items-center gap-3 rounded-2xl px-4 py-4 text-text"
                     >
-                      {content}
+                      {inner}
                     </a>
+                  ) : (
+                    <div key={item.label} className="flex items-center gap-3 rounded-2xl border border-glass bg-(--bg-elev) px-4 py-4 text-text">
+                      {inner}
+                    </div>
                   );
-                }
+                })}
+              </div>
+            </GlassCard>
+          </Reveal>
 
-                return (
-                  <div
-                    key={item.label}
-                    className="flex items-center gap-3 rounded-2xl border border-white/10 bg-slate-950/40 px-4 py-4 text-slate-200"
-                  >
-                    {content}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-          <div className="flex flex-col justify-between gap-6 rounded-3xl border border-white/10 bg-gradient-to-br from-white/10 via-white/5 to-transparent p-8 text-sm text-slate-200 shadow-lg shadow-sky-500/10 backdrop-blur">
-            <div>
-              <p className="text-base font-semibold text-white">
-                Recent graduate, proven professional impact
-              </p>
-              <p className="mt-3 leading-relaxed">
-                Graduated in 2024 with immediate contributions at Rita Group and Sumadi. 
-                I bring fresh perspectives combined with hands-on experience building 
-                scalable systems. Ready to collaborate with founders, designers, and 
-                platform teams to ship features that matter.
-              </p>
-            </div>
-            <div className="rounded-2xl border border-dashed border-white/20 bg-slate-950/40 px-6 py-5 text-sm text-slate-300">
-              <p>Availability</p>
-              <p className="mt-2 font-semibold text-white">
-                Open to full-time, freelance, and remote-first collaborations in 2025.
-              </p>
-            </div>
-          </div>
+          <Reveal delay={0.05}>
+            <GlassCard className="flex h-full flex-col justify-between gap-6 p-8 text-sm text-text-muted">
+              <div>
+                <p className="text-base font-semibold text-text">Proven professional impact</p>
+                <p className="mt-3 leading-relaxed">
+                  2+ years delivering production systems at Rita Group and Sumadi. I pair fresh
+                  perspective with hands-on experience building scalable, automated platforms — ready
+                  to collaborate with founders, designers, and platform teams.
+                </p>
+              </div>
+              <a
+                href={profile.cvPath}
+                download
+                className="inline-flex items-center justify-center rounded-full bg-accent px-6 py-3 text-sm font-semibold text-accent-contrast transition-transform hover:scale-105"
+              >
+                Download CV
+              </a>
+            </GlassCard>
+          </Reveal>
         </div>
       </div>
 
-      <footer className="mx-auto mt-20 max-w-6xl border-t border-white/10 px-4 py-8 text-center text-sm text-slate-400 sm:px-6 lg:px-8">
-        © 2025 Bryan Alexis Mejia Fonseca. Built with Next.js and Tailwind CSS.
+      <footer className="mx-auto mt-16 max-w-6xl border-t border-glass px-4 py-8 text-center text-sm text-text-muted sm:px-6 lg:px-8">
+        © {new Date().getFullYear()} {profile.name}. Built with Next.js, Tailwind CSS, and Remotion.
       </footer>
     </section>
   );

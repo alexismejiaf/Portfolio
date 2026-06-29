@@ -1,143 +1,101 @@
-import {
-  AcademicCapIcon,
-  CheckBadgeIcon,
-  GlobeAltIcon,
-  SparklesIcon,
-} from "@heroicons/react/24/outline";
-import AnimatedSection from "./AnimatedSection";
+import { AcademicCapIcon, CheckBadgeIcon, GlobeAltIcon, SparklesIcon } from "@heroicons/react/24/outline";
+import GlassCard from "./ui/GlassCard";
+import Reveal from "./ui/Reveal";
 
 const highlights = [
-  "Designing secure, scalable systems with a human-centered experience",
-  "Bridging software, networking, and cloud infrastructure for faster delivery",
-  "Obsessed with automation, AI-driven workflows, and measurable outcomes",
+  "Designing secure, scalable serverless systems with a human-centered experience.",
+  "Bridging software, cloud, and networking for faster, more reliable delivery.",
+  "Obsessed with automation, AI-driven workflows, and measurable outcomes.",
+];
+
+const languages = [
+  { name: "Spanish", level: "Native", pct: 100 },
+  { name: "English", level: "C1/C2 — EF SET 90/100", pct: 92 },
 ];
 
 export default function About() {
   return (
     <section id="about" className="relative" aria-labelledby="about-heading">
-      <div className="absolute inset-x-0 top-0 -z-10 h-32 bg-gradient-to-b from-white/5 to-transparent blur-3xl" aria-hidden="true" />
-      <div className="mx-auto max-w-6xl px-4 py-24 sm:px-6 lg:px-8">
-        <div className="space-y-6 text-center sm:space-y-7">
-          <span className="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.4em] text-slate-200 opacity-0 animate-fade-in">
+      <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
+        <Reveal className="space-y-5 text-center">
+          <span className="glass inline-flex rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.4em] text-text-muted">
             About
           </span>
-          <h2 className="text-3xl font-semibold text-white sm:text-4xl opacity-0 animate-fade-in delay-200" id="about-heading">
+          <h2 id="about-heading" className="text-3xl font-semibold text-text sm:text-4xl">
             Building meaningful experiences with thoughtful engineering.
           </h2>
-          <p className="mx-auto max-w-2xl text-base text-slate-300 sm:text-lg opacity-0 animate-fade-in delay-300">
-            I&apos;m a Tegucigalpa-based software developer and network engineer
-            who thrives at the intersection of cloud, automation, and user-first
-            interfaces. From rapid prototypes to production systems, I bring a
-            reliability mindset to every layer of the stack.
+          <p className="mx-auto max-w-2xl text-base text-text-muted sm:text-lg">
+            A Tegucigalpa-based software developer working at the intersection of cloud,
+            automation, and user-first interfaces — from rapid prototypes to production systems.
           </p>
-        </div>
+        </Reveal>
 
-        <div className="mt-16 grid gap-12 lg:grid-cols-[1.2fr_0.8fr]">
+        <div className="mt-14 grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
           <div className="space-y-8">
-            <AnimatedSection animation="slide-in-left" delay={400}>
-              <div className="rounded-3xl border border-white/10 bg-white/5 p-8 shadow-xl shadow-sky-500/10 backdrop-blur">
-              <span className="inline-flex items-center gap-2 text-sm font-semibold text-sky-300">
-                <SparklesIcon className="h-4 w-4" />
-                What drives me
-              </span>
-              <ul className="mt-6 space-y-4 text-sm text-slate-200 sm:text-base">
-                {highlights.map((item) => (
-                  <li key={item} className="flex gap-3">
-                    <span className="mt-1 h-2 w-2 rounded-full bg-gradient-to-r from-sky-500 to-indigo-500" />
-                    <span className="leading-relaxed">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            </AnimatedSection>
+            <Reveal>
+              <GlassCard className="p-8">
+                <span className="inline-flex items-center gap-2 text-sm font-semibold text-text">
+                  <SparklesIcon className="h-4 w-4" aria-hidden="true" /> What drives me
+                </span>
+                <ul className="mt-6 space-y-4 text-sm text-text-muted sm:text-base">
+                  {highlights.map((item) => (
+                    <li key={item} className="flex gap-3">
+                      <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-accent" />
+                      <span className="leading-relaxed">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </GlassCard>
+            </Reveal>
 
             <div className="grid gap-6 md:grid-cols-2">
-              <AnimatedSection animation="scale-in" delay={500}>
-                <div className="rounded-2xl border border-white/10 bg-slate-950/40 p-6">
-                <div className="flex items-center gap-3 text-slate-300">
-                  <AcademicCapIcon className="h-6 w-6 text-sky-300" />
-                  <div>
-                    <p className="text-sm uppercase tracking-wider text-slate-400">
-                      Education
-                    </p>
-                    <p className="text-base font-semibold text-white">
-                      B.Sc. Computer Systems Engineering
-                    </p>
-                  </div>
-                </div>
-                <div className="mt-4 space-y-1 text-sm text-slate-300">
-                  <p>Universidad Tecnológica Centroamericana - UNITEC</p>
-                  <p>Tegucigalpa, Honduras</p>
-                  <p className="text-slate-400">2015 - 2024 (Graduated)</p>
-                </div>
-              </div>
-              </AnimatedSection>
-
-              <AnimatedSection animation="scale-in" delay={600}>
-                <div className="rounded-2xl border border-white/10 bg-slate-950/40 p-6">
-                <div className="flex items-center gap-3 text-slate-300">
-                  <CheckBadgeIcon className="h-6 w-6 text-sky-300" />
-                  <div>
-                    <p className="text-sm uppercase tracking-wider text-slate-400">
-                      Certification
-                    </p>
-                    <p className="text-base font-semibold text-white">
-                      Cisco Certified Network Associate (CCNA)
-                    </p>
-                  </div>
-                </div>
-                <p className="mt-4 text-sm text-slate-300">
-                  Obtained: 2023 | Deep grounding in networking, routing, and security best
-                  practices that inform every architecture decision.
-                </p>
-              </div>
-              </AnimatedSection>
+              <Reveal delay={0.05}>
+                <GlassCard className="h-full p-6">
+                  <AcademicCapIcon className="h-6 w-6 text-text-muted" aria-hidden="true" />
+                  <p className="mt-4 text-xs uppercase tracking-wider text-text-muted">Education</p>
+                  <p className="text-base font-semibold text-text">B.Sc. Computer Systems Engineering</p>
+                  <p className="mt-2 text-sm text-text-muted">UNITEC — Tegucigalpa, Honduras</p>
+                  <p className="text-sm text-text-muted">Graduated 2023</p>
+                </GlassCard>
+              </Reveal>
+              <Reveal delay={0.1}>
+                <GlassCard className="h-full p-6">
+                  <CheckBadgeIcon className="h-6 w-6 text-text-muted" aria-hidden="true" />
+                  <p className="mt-4 text-xs uppercase tracking-wider text-text-muted">Certification</p>
+                  <p className="text-base font-semibold text-text">Cisco Certified Network Associate</p>
+                  <p className="mt-2 text-sm text-text-muted">CCNA — networking, routing, and security fundamentals.</p>
+                </GlassCard>
+              </Reveal>
             </div>
           </div>
 
-          <div className="space-y-6">
-            <AnimatedSection animation="slide-in-right" delay={500}>
-              <div className="rounded-3xl border border-white/10 bg-gradient-to-b from-white/8 to-white/3 p-8 shadow-lg shadow-indigo-500/10 backdrop-blur">
-              <span className="inline-flex items-center gap-2 text-sm font-semibold text-sky-300">
-                <GlobeAltIcon className="h-5 w-5" />
-                Languages
+          <Reveal delay={0.1}>
+            <GlassCard className="h-full p-8">
+              <span className="inline-flex items-center gap-2 text-sm font-semibold text-text">
+                <GlobeAltIcon className="h-5 w-5" aria-hidden="true" /> Languages
               </span>
-              <div className="mt-6 space-y-4 text-sm text-slate-200">
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <span>Spanish</span>
-                    <span className="text-slate-400">Native</span>
+              <div className="mt-6 space-y-5 text-sm text-text">
+                {languages.map((l) => (
+                  <div key={l.name} className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span>{l.name}</span>
+                      <span className="text-text-muted">{l.level}</span>
+                    </div>
+                    <div
+                      role="progressbar"
+                      aria-valuenow={l.pct}
+                      aria-valuemin={0}
+                      aria-valuemax={100}
+                      aria-label={`${l.name} proficiency`}
+                      className="h-1.5 rounded-full bg-(--glass-border)"
+                    >
+                      <div className="h-full rounded-full bg-accent" style={{ width: `${l.pct}%` }} />
+                    </div>
                   </div>
-                  <div className="h-1.5 rounded-full bg-white/10">
-                    <div className="h-full w-full rounded-full bg-gradient-to-r from-sky-500 to-indigo-500" />
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <span>English</span>
-                    <span className="text-slate-400">Advanced</span>
-                  </div>
-                  <div className="h-1.5 rounded-full bg-white/10">
-                    <div className="h-full w-[85%] rounded-full bg-gradient-to-r from-sky-500 to-indigo-500" />
-                  </div>
-                </div>
+                ))}
               </div>
-            </div>
-            </AnimatedSection>
-
-            <AnimatedSection animation="fade-in" delay={700}>
-              <div className="rounded-3xl border border-dashed border-white/10 bg-white/5 p-8 text-sm text-slate-300">
-              <p className="text-base font-semibold text-white">
-                Outside the IDE
-              </p>
-              <p className="mt-3 leading-relaxed">
-                Career-long learner exploring AI-assisted engineering, edge
-                computing, and ways to make technology more accessible across
-                Latin America.
-              </p>
-            </div>
-            </AnimatedSection>
-          </div>
+            </GlassCard>
+          </Reveal>
         </div>
       </div>
     </section>

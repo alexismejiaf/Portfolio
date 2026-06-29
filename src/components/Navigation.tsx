@@ -1,118 +1,101 @@
-'use client';
+"use client";
 
 import { useState } from "react";
+import { motion } from "motion/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import ThemeToggle from "./theme/ThemeToggle";
+import { useActiveSection } from "@/hooks/useActiveSection";
+import { profile } from "@/data/profile";
 
 const navItems = [
-  { name: "About", href: "#about" },
-  { name: "Skills", href: "#skills" },
-  { name: "Experience", href: "#experience" },
-  { name: "Projects", href: "#projects" },
-  { name: "Contact", href: "#contact" },
+  { name: "About", href: "#about", id: "about" },
+  { name: "Skills", href: "#skills", id: "skills" },
+  { name: "Experience", href: "#experience", id: "experience" },
+  { name: "Projects", href: "#projects", id: "projects" },
+  { name: "Contact", href: "#contact", id: "contact" },
 ];
+
+const NAV_IDS = navItems.map((n) => n.id);
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
+  const active = useActiveSection(NAV_IDS);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-slate-950/70 backdrop-blur-xl" aria-label="Main navigation">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
-          {/* Logo */}
-          <div className="flex items-center gap-3">
-            <div className="relative inline-flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-sky-500 via-indigo-500 to-blue-600 text-base font-semibold text-white shadow-lg shadow-sky-500/30">
-              BM
-            </div>
-            <a
-              href="#"
-              className="text-sm font-semibold uppercase tracking-[0.28em] text-slate-100"
-            >
-              Bryan Mejia
-            </a>
-          </div>
+    <nav className="fixed inset-x-0 top-0 z-50" aria-label="Main navigation">
+      <div className="mx-auto mt-3 max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div className="glass flex h-14 items-center justify-between rounded-full px-4 sm:px-6">
+          <a href="#home" className="flex items-center gap-3">
+            <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-accent text-sm font-semibold text-accent-contrast">
+              {profile.initials}
+            </span>
+            <span className="hidden text-sm font-semibold uppercase tracking-[0.28em] text-text sm:inline">
+              {profile.shortName}
+            </span>
+          </a>
 
-          {/* Desktop Navigation */}
-          <div className="hidden items-center gap-10 md:flex">
-            <div className="flex items-center gap-6 text-sm font-medium">
-              {navItems.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className="text-slate-300 transition-colors hover:text-white"
-                >
-                  {item.name}
-                </a>
-              ))}
-            </div>
-            <div className="flex items-center gap-3">
-              <a
-                href="https://github.com/alexismejiaf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-2 text-sm font-semibold text-slate-200 transition-all hover:scale-105 hover:border-white/40 hover:text-white"
-                aria-label="GitHub Profile"
-              >
-                GitHub
-              </a>
-              <a
-                href="#contact"
-                className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-sky-500 via-indigo-500 to-blue-600 px-5 py-2 text-sm font-semibold text-white shadow-lg shadow-indigo-500/30 transition-all hover:scale-105 hover:shadow-indigo-500/50"
-              >
-                Let&apos;s talk
-              </a>
-            </div>
-          </div>
-
-          {/* Mobile menu button */}
-          <div className="md:hidden">
-            <button
-              onClick={() => setIsOpen((prev) => !prev)}
-              className="rounded-full border border-white/10 p-2 text-slate-200 transition hover:bg-white/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400"
-              aria-label="Toggle navigation menu"
-            >
-              {isOpen ? (
-                <XMarkIcon className="h-6 w-6" />
-              ) : (
-                <Bars3Icon className="h-6 w-6" />
-              )}
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Mobile Navigation Menu */}
-      {isOpen && (
-        <div className="md:hidden">
-          <div className="space-y-1 border-t border-white/10 bg-slate-950/95 px-4 pb-6 pt-4">
+          <div className="hidden items-center gap-1 md:flex">
             {navItems.map((item) => (
               <a
                 key={item.name}
                 href={item.href}
-                className="block rounded-lg px-3 py-2 text-sm font-medium text-slate-300 transition hover:bg-white/5 hover:text-white"
+                className="relative rounded-full px-4 py-2 text-sm font-medium text-text-muted transition-colors hover:text-text"
+              >
+                {active === item.id && (
+                  <motion.span
+                    layoutId="nav-active"
+                    className="absolute inset-0 rounded-full bg-(--glass-bg-strong)"
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
+                <span className="relative">{item.name}</span>
+              </a>
+            ))}
+          </div>
+
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            <a
+              href={profile.cvPath}
+              download
+              className="hidden rounded-full bg-accent px-4 py-2 text-sm font-semibold text-accent-contrast transition-transform hover:scale-105 sm:inline-flex"
+            >
+              Download CV
+            </a>
+            <button
+              onClick={() => setIsOpen((p) => !p)}
+              aria-label="Toggle navigation menu"
+              aria-expanded={isOpen}
+              className="glass inline-flex h-10 w-10 items-center justify-center rounded-full text-text md:hidden"
+            >
+              {isOpen ? <XMarkIcon className="h-5 w-5" /> : <Bars3Icon className="h-5 w-5" />}
+            </button>
+          </div>
+        </div>
+
+        {isOpen && (
+          <div className="glass mt-2 space-y-1 rounded-3xl p-3 md:hidden">
+            {navItems.map((item) => (
+              <a
+                key={item.name}
+                href={item.href}
                 onClick={() => setIsOpen(false)}
+                className="block rounded-2xl px-4 py-3 text-sm font-medium text-text-muted transition-colors hover:bg-(--glass-bg-strong) hover:text-text"
               >
                 {item.name}
               </a>
             ))}
             <a
-              href="https://github.com/alexismejiaf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block rounded-lg px-3 py-2 text-sm font-medium text-slate-300 transition hover:bg-white/5 hover:text-white"
+              href={profile.cvPath}
+              download
               onClick={() => setIsOpen(false)}
+              className="mt-1 block rounded-2xl bg-accent px-4 py-3 text-center text-sm font-semibold text-accent-contrast"
             >
-              GitHub
-            </a>
-            <a
-              href="#contact"
-              className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-sky-500 via-indigo-500 to-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-indigo-500/30"
-              onClick={() => setIsOpen(false)}
-            >
-              Let&apos;s talk
+              Download CV
             </a>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </nav>
   );
 }

@@ -1,138 +1,128 @@
-import {
-  ArrowDownIcon,
-  ArrowUpRightIcon,
-  DevicePhoneMobileIcon,
-  DocumentArrowDownIcon,
-  EnvelopeIcon,
-  MapPinIcon,
-} from "@heroicons/react/24/outline";
+"use client";
 
-const stats = [
-  { value: "2+", label: "Years professional experience" },
-  { value: "13+", label: "Projects shipped across web, AI, and cloud" },
-  { value: "AWS & CCNA", label: "Cloud and infrastructure certifications (2023)" },
-];
+import Image from "next/image";
+import { motion, useReducedMotion } from "motion/react";
+import {
+  ArrowDownIcon, ArrowUpRightIcon, DocumentArrowDownIcon,
+  EnvelopeIcon, MapPinIcon,
+} from "@heroicons/react/24/outline";
+import GlassCard from "./ui/GlassCard";
+import MagneticButton from "./ui/MagneticButton";
+import { profile } from "@/data/profile";
 
 export default function Hero() {
+  const reduce = useReducedMotion();
   return (
-    <section 
-      id="home" 
-      className="relative isolate overflow-hidden pt-28 sm:pt-36" 
-      aria-label="Hero section - Introduction"
-    >
-      <div className="absolute inset-x-0 -top-64 -z-10 flex justify-center blur-3xl" aria-hidden="true">
-        <div className="h-[340px] w-[600px] bg-[radial-gradient(circle_at_center,_rgba(56,189,248,0.35),_transparent_60%)]" />
-      </div>
-      <div className="absolute inset-x-0 bottom-0 -z-10 flex justify-end blur-3xl" aria-hidden="true">
-        <div className="h-[320px] w-[420px] translate-x-1/4 bg-[radial-gradient(circle_at_center,_rgba(129,140,248,0.35),_transparent_60%)]" />
+    <section id="home" className="relative isolate overflow-hidden pt-32 sm:pt-40" aria-label="Introduction">
+      {/* Remotion liquid-glass background */}
+      <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="none"
+          poster="/hero-poster.jpg"
+          className="h-full w-full object-cover opacity-60 motion-reduce:hidden light:hidden"
+        >
+          <source src="/hero-loop.webm" type="video/webm" />
+          <source src="/hero-loop.mp4" type="video/mp4" />
+        </video>
+        <div className="hidden h-full w-full bg-(--bg-elev) motion-reduce:block" />
+        <div className="absolute inset-0 bg-(--bg)/40" />
       </div>
 
-      <div className="mx-auto grid max-w-6xl items-center gap-16 px-4 sm:px-6 lg:grid-cols-[1.45fr_1fr] lg:px-8">
-        <div className="space-y-10">
-          <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-slate-200 opacity-0 animate-fade-in">
-            Software Developer / Network Engineer
-          </div>
-
+      <div className="mx-auto grid max-w-6xl items-center gap-14 px-4 sm:px-6 lg:grid-cols-[1.4fr_1fr] lg:px-8">
+        <motion.div
+          initial={reduce ? false : { opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="space-y-8"
+        >
+          <span className="glass inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-text-muted">
+            {profile.role}
+          </span>
           <div className="space-y-5">
-            <h1 className="text-4xl font-semibold leading-tight text-white sm:text-5xl lg:text-6xl opacity-0 animate-slide-in-left delay-200">
-              Hi, I&apos;m Bryan Mejia.
+            <h1 className="text-4xl font-semibold leading-tight text-text sm:text-5xl lg:text-6xl">
+              Hi, I&apos;m {profile.shortName}.
               <br />
-              I craft resilient digital products that scale.
+              {profile.tagline}
             </h1>
-            <p className="max-w-2xl text-base text-slate-300 sm:text-lg opacity-0 animate-fade-in delay-400">
-              Full-stack engineer with a cloud and networking background. I
-              design end-to-end solutions that blend modern UX, scalable
-              architecture, and automation to deliver measurable business impact.
-            </p>
+            <p className="max-w-2xl text-base text-text-muted sm:text-lg">{profile.summary}</p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-4 opacity-0 animate-fade-in delay-600">
-            <a
-              href="mailto:bryamejia@gmail.com"
-              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-sky-500 via-indigo-500 to-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-indigo-500/30 transition-all hover:scale-105 hover:shadow-indigo-500/50"
-              aria-label="Send email to Bryan Mejia"
+          <div className="flex flex-wrap items-center gap-3">
+            <MagneticButton
+              href={`mailto:${profile.email}`}
+              ariaLabel="Send email"
+              className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-accent-contrast"
             >
-              Get in touch
-              <ArrowUpRightIcon className="h-4 w-4" aria-hidden="true" />
-            </a>
-            <a
-              href="https://linkedin.com/in/alexismejiaf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-slate-200 transition-all hover:scale-105 hover:border-white/40 hover:text-white"
-              aria-label="Visit LinkedIn profile"
+              Get in touch <ArrowUpRightIcon className="h-4 w-4" aria-hidden="true" />
+            </MagneticButton>
+            <MagneticButton
+              href={profile.cvPath}
+              download
+              className="glass inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-text"
             >
-              LinkedIn
-              <ArrowUpRightIcon className="h-4 w-4" aria-hidden="true" />
-            </a>
-            <a
-              href="https://github.com/alexismejiaf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-slate-200 transition-all hover:scale-105 hover:border-white/40 hover:text-white"
-              aria-label="Visit GitHub profile"
+              <DocumentArrowDownIcon className="h-4 w-4" aria-hidden="true" /> Download CV
+            </MagneticButton>
+            <MagneticButton
+              href={profile.links.github} external ariaLabel="GitHub profile"
+              className="glass inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-text"
             >
-              GitHub
-              <ArrowUpRightIcon className="h-4 w-4" aria-hidden="true" />
-            </a>
-            <a
-              href="#projects"
-              className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-3 text-sm font-semibold text-slate-200 transition hover:border-white/30 hover:bg-white/10 hover:text-white"
-            >
-              <DocumentArrowDownIcon className="h-4 w-4" />
-              View projects
-            </a>
+              GitHub <ArrowUpRightIcon className="h-4 w-4" aria-hidden="true" />
+            </MagneticButton>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-3 sm:items-center">
-            <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-slate-200 opacity-0 animate-scale-in delay-700">
-              <MapPinIcon className="h-5 w-5 text-sky-300" />
-              Tegucigalpa, Honduras
+          <div className="grid gap-3 sm:grid-cols-2">
+            <div className="glass flex items-center gap-3 rounded-2xl px-4 py-3 text-sm text-text">
+              <MapPinIcon className="h-5 w-5 text-text-muted" aria-hidden="true" /> {profile.location}
             </div>
-            <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-slate-200 opacity-0 animate-scale-in delay-800">
-              <DevicePhoneMobileIcon className="h-5 w-5 text-sky-300" />
-              <a href="tel:+50498428161" className="hover:text-white">
-                +504 98428161
-              </a>
-            </div>
-            <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-slate-200 opacity-0 animate-scale-in delay-[900ms]">
-              <EnvelopeIcon className="h-5 w-5 text-sky-300" />
-              <a href="mailto:bryamejia@gmail.com" className="hover:text-white">
-                bryamejia@gmail.com
-              </a>
-            </div>
+            <a href={`mailto:${profile.email}`} className="glass glass-interactive flex items-center gap-3 rounded-2xl px-4 py-3 text-sm text-text">
+              <EnvelopeIcon className="h-5 w-5 text-text-muted" aria-hidden="true" /> {profile.email}
+            </a>
           </div>
-        </div>
+        </motion.div>
 
-        <div className="relative">
-          <div className="absolute inset-0 -z-10 rounded-[2rem] bg-gradient-to-br from-sky-500/20 via-indigo-500/20 to-blue-600/20 blur-3xl" />
-          <div className="rounded-[2rem] border border-white/10 bg-white/5 p-8 shadow-2xl shadow-indigo-500/20 backdrop-blur opacity-0 animate-slide-in-right delay-500">
-            <span className="text-xs font-semibold uppercase tracking-[0.4em] text-sky-300">
-              Key metrics
-            </span>
-            <div className="mt-6 grid gap-6">
-              {stats.map((stat) => (
-                <div key={stat.label} className="space-y-1">
-                  <p className="text-4xl font-semibold text-white">
-                    {stat.value}
-                  </p>
-                  <p className="text-sm text-slate-300">{stat.label}</p>
+        <motion.div
+          initial={reduce ? false : { opacity: 0, scale: 0.96 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <GlassCard className="p-8">
+            <div className="flex items-center gap-4">
+              <div className="glass relative h-16 w-16 overflow-hidden rounded-2xl">
+                <Image
+                  src={profile.photoPath}
+                  alt={profile.name}
+                  fill
+                  sizes="64px"
+                  className="object-cover"
+                  onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
+                />
+              </div>
+              <div>
+                <p className="text-base font-semibold text-text">{profile.shortName}</p>
+                <p className="text-sm text-text-muted">{profile.role}</p>
+              </div>
+            </div>
+            <div className="mt-8 grid gap-6">
+              {profile.stats.map((s) => (
+                <div key={s.label} className="space-y-1">
+                  <p className="text-3xl font-semibold text-text">{s.value}</p>
+                  <p className="text-sm text-text-muted">{s.label}</p>
                 </div>
               ))}
             </div>
-            <div className="mt-8 rounded-2xl border border-white/10 bg-slate-950/40 p-5 text-sm text-slate-300">
-              <p className="font-semibold text-white">Currently at</p>
-              <p className="mt-1 text-slate-300">
-                Rita Group - Building serverless AI assistants and a B2B marketplace
-                with Next.js, AWS, and modern developer tooling.
-              </p>
-            </div>
-          </div>
-        </div>
+            <p className="mt-8 rounded-2xl border border-glass bg-(--bg-elev) p-5 text-sm text-text-muted">
+              {profile.current}
+            </p>
+          </GlassCard>
+        </motion.div>
       </div>
 
       <div className="mt-16 flex justify-center">
-        <ArrowDownIcon className="h-6 w-6 animate-bounce text-slate-500" aria-label="Scroll down" />
+        <ArrowDownIcon className="h-6 w-6 animate-bounce text-text-muted" aria-hidden="true" />
       </div>
     </section>
   );
