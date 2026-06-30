@@ -1,19 +1,27 @@
 #!/usr/bin/env bun
 /**
- * One-shot image optimizer for /public.
- * Produces optimized .webp + .avif variants alongside a downsized .png fallback.
+ * Optimize raster assets in /public.
+ *
+ * Strategy: keep the original file format (so next/image's runtime
+ * transcoding to AVIF/WebP keeps working), but cap dimensions and
+ * re-compress. next/image will serve modern formats automatically via
+ * `images.formats` in next.config.ts, so we don't need to ship sibling
+ * .avif/.webp files alongside the originals.
+ *
  * Run with: bun run optimize:images
  */
-import { mkdir, readdir, stat } from "node:fs/promises";
+import { readdir, stat } from "node:fs/promises";
 import { extname, join, parse } from "node:path";
 import sharp from "sharp";
 
 const PUBLIC_DIR = "public";
-const MAX_WIDTH = 1200;
-const TARGETS = [
-  { ext: "avif", options: { quality: 60, effort: 6 } },
-  { ext: "webp", options: { quality: 80, effort: 6 } },
-] as const;
+const DEFAULT_MAX_WIDTH = 1200;
+// Per-file overrides for assets we know are displayed at a specific size.
+// next/image will still serve a smaller transcoded copy at request time;
+// these caps ensure the source asset itself isn't wastefully oversized.
+const MAX_WIDTH: Record<string, number> = {
+  "profile.png": 256, // displayed at 64x64, 4x for retina
+};
 const RAW_EXT = new Set([".png", ".jpg", ".jpeg"]);
 const SKIP = new Set(["hero-poster.jpg"]);
 
@@ -25,57 +33,41 @@ function fmtBytes(n: number) {
 
 async function optimize(file: string) {
   const inputPath = join(PUBLIC_DIR, file);
-  const { name } = parse(file);
   const inputBytes = (await stat(inputPath)).size;
-  const image = sharp(inputPath, { failOn: "none" });
-  const meta = await image.metadata();
-  const resizeWidth = meta.width && meta.width > MAX_WIDTH ? MAX_WIDTH : meta.width;
+  const ext = extname(file).toLowerCase().slice(1) as "png" | "jpg" | "jpeg";
+  const { name } = parse(file);
 
-  console.log(`\n📷 ${file} (${fmtBytes(inputBytes)}, ${meta.width}x${meta.height})`);
+  const buffer = await Bun.file(inputPath).arrayBuffer();
+  const meta = await sharp(new Uint8Array(buffer)).metadata();
+  const cap = MAX_WIDTH[file] ?? DEFAULT_MAX_WIDTH;
+  const targetWidth = meta.width && meta.width > cap ? cap : meta.width;
 
-  for (const { ext, options } of TARGETS) {
-    const outPath = join(PUBLIC_DIR, `${name}.${ext}`);
-    const pipeline = sharp(inputPath, { failOn: "none" }).resize({
-      width: resizeWidth,
-      withoutEnlargement: true,
-    });
-    await (
-      ext === "avif"
-        ? pipeline.avif(options as sharp.AvifOptions)
-        : pipeline.webp(options as sharp.WebpOptions)
-    ).toFile(outPath);
-    const outBytes = (await stat(outPath)).size;
+  console.log(`\n📷 ${file} (${fmtBytes(inputBytes)}, ${meta.width}×${meta.height})`);
+
+  const tmpPath = join(PUBLIC_DIR, `${name}.opt.${ext}`);
+  const pipeline = sharp(new Uint8Array(buffer)).resize({
+    width: targetWidth,
+    withoutEnlargement: true,
+  });
+
+  if (ext === "png") {
+    await pipeline.png({ compressionLevel: 9, palette: true, quality: 90 }).toFile(tmpPath);
+  } else {
+    await pipeline.jpeg({ quality: 82, mozjpeg: true }).toFile(tmpPath);
+  }
+
+  const outBytes = (await stat(tmpPath)).size;
+  if (outBytes < inputBytes) {
+    await Bun.write(inputPath, Bun.file(tmpPath));
     const saved = (((inputBytes - outBytes) / inputBytes) * 100).toFixed(1);
-    console.log(`  → ${ext.padEnd(4)} ${fmtBytes(outBytes).padStart(8)} (${saved}% smaller)`);
+    console.log(`  → ${fmtBytes(outBytes)} (${saved}% smaller, overwrote original)`);
+  } else {
+    console.log(`  → no improvement, kept original`);
   }
-
-  // Also re-compress the original PNG/JPG fallback in-place if we can shrink it.
-  const inputExt = extname(file).toLowerCase().slice(1);
-  if (inputExt === "png" || inputExt === "jpg" || inputExt === "jpeg") {
-    const tmpPath = join(PUBLIC_DIR, `${name}.opt.${inputExt}`);
-    const pipe = sharp(inputPath, { failOn: "none" }).resize({
-      width: resizeWidth,
-      withoutEnlargement: true,
-    });
-    if (inputExt === "png") {
-      await pipe.png({ compressionLevel: 9, palette: true, quality: 90 }).toFile(tmpPath);
-    } else {
-      await pipe.jpeg({ quality: 82, mozjpeg: true }).toFile(tmpPath);
-    }
-    const tmpBytes = (await stat(tmpPath)).size;
-    if (tmpBytes < inputBytes) {
-      await Bun.write(inputPath, Bun.file(tmpPath));
-      const saved = (((inputBytes - tmpBytes) / inputBytes) * 100).toFixed(1);
-      console.log(
-        `  → ${inputExt.padEnd(4)} ${fmtBytes(tmpBytes).padStart(8)} (${saved}% smaller, overwrote original)`,
-      );
-    }
-    await Bun.file(tmpPath).delete?.();
-  }
+  await Bun.file(tmpPath).delete?.();
 }
 
 async function main() {
-  await mkdir(PUBLIC_DIR, { recursive: true });
   const files = await readdir(PUBLIC_DIR);
   const targets = files.filter((f) => RAW_EXT.has(extname(f).toLowerCase()) && !SKIP.has(f));
 
