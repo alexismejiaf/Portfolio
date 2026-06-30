@@ -1,4 +1,9 @@
-import { AcademicCapIcon, CheckBadgeIcon, GlobeAltIcon, SparklesIcon } from "@heroicons/react/24/outline";
+import {
+  AcademicCapIcon,
+  CheckBadgeIcon,
+  GlobeAltIcon,
+  SparklesIcon,
+} from "@heroicons/react/24/outline";
 import GlassCard from "./ui/GlassCard";
 import Reveal from "./ui/Reveal";
 
@@ -25,8 +30,8 @@ export default function About() {
             Building meaningful experiences with thoughtful engineering.
           </h2>
           <p className="mx-auto max-w-2xl text-base text-text-muted sm:text-lg">
-            A Tegucigalpa-based software developer working at the intersection of cloud,
-            automation, and user-first interfaces — from rapid prototypes to production systems.
+            A Tegucigalpa-based software developer working at the intersection of cloud, automation,
+            and user-first interfaces — from rapid prototypes to production systems.
           </p>
         </Reveal>
 
@@ -53,7 +58,9 @@ export default function About() {
                 <GlassCard className="h-full p-6">
                   <AcademicCapIcon className="h-6 w-6 text-text-muted" aria-hidden="true" />
                   <p className="mt-4 text-xs uppercase tracking-wider text-text-muted">Education</p>
-                  <p className="text-base font-semibold text-text">B.Sc. Computer Systems Engineering</p>
+                  <p className="text-base font-semibold text-text">
+                    B.Sc. Computer Systems Engineering
+                  </p>
                   <p className="mt-2 text-sm text-text-muted">UNITEC — Tegucigalpa, Honduras</p>
                   <p className="text-sm text-text-muted">Graduated 2023</p>
                 </GlassCard>
@@ -61,9 +68,15 @@ export default function About() {
               <Reveal delay={0.1}>
                 <GlassCard className="h-full p-6">
                   <CheckBadgeIcon className="h-6 w-6 text-text-muted" aria-hidden="true" />
-                  <p className="mt-4 text-xs uppercase tracking-wider text-text-muted">Certification</p>
-                  <p className="text-base font-semibold text-text">Cisco Certified Network Associate</p>
-                  <p className="mt-2 text-sm text-text-muted">CCNA — networking, routing, and security fundamentals.</p>
+                  <p className="mt-4 text-xs uppercase tracking-wider text-text-muted">
+                    Certification
+                  </p>
+                  <p className="text-base font-semibold text-text">
+                    Cisco Certified Network Associate
+                  </p>
+                  <p className="mt-2 text-sm text-text-muted">
+                    CCNA — networking, routing, and security fundamentals.
+                  </p>
                 </GlassCard>
               </Reveal>
             </div>
@@ -89,7 +102,10 @@ export default function About() {
                       aria-label={`${l.name} proficiency`}
                       className="h-1.5 rounded-full bg-(--glass-border)"
                     >
-                      <div className="h-full rounded-full bg-accent" style={{ width: `${l.pct}%` }} />
+                      <div
+                        className="h-full rounded-full bg-accent"
+                        style={{ width: `${l.pct}%` }}
+                      />
                     </div>
                   </div>
                 ))}

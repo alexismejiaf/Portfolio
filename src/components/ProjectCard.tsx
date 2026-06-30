@@ -2,7 +2,13 @@ import { ArrowUpRightIcon } from "@heroicons/react/24/outline";
 import GlassCard from "./ui/GlassCard";
 import type { Project } from "@/data/projects";
 
-export default function ProjectCard({ project, featured = false }: { project: Project; featured?: boolean }) {
+export default function ProjectCard({
+  project,
+  featured = false,
+}: {
+  project: Project;
+  featured?: boolean;
+}) {
   return (
     <GlassCard className={`flex h-full flex-col p-7 ${featured ? "sm:p-8" : ""}`}>
       <div className="flex items-start justify-between gap-3">
@@ -27,7 +33,10 @@ export default function ProjectCard({ project, featured = false }: { project: Pr
       <p className="mt-3 flex-1 text-sm leading-relaxed text-text-muted">{project.description}</p>
       <div className="mt-5 flex flex-wrap gap-2">
         {project.tech.map((t) => (
-          <span key={t} className="inline-flex items-center rounded-full border border-glass bg-(--glass-bg) px-3 py-1 text-xs font-medium text-text">
+          <span
+            key={t}
+            className="inline-flex items-center rounded-full border border-glass bg-(--glass-bg) px-3 py-1 text-xs font-medium text-text"
+          >
             {t}
           </span>
         ))}

@@ -5,7 +5,7 @@ describe("projects data", () => {
   it("has exactly three featured projects", () => {
     expect(featuredProjects).toHaveLength(3);
     expect(featuredProjects.map((p) => p.title)).toEqual(
-      expect.arrayContaining(["MKT by Rita", "TruckLog", "Data Extractor"])
+      expect.arrayContaining(["MKT by Rita", "TruckLog", "Data Extractor"]),
     );
   });
   it("featured + grid partitions the full list", () => {

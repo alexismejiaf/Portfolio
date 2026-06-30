@@ -10,7 +10,7 @@ export default function Projects() {
   const [active, setActive] = useState("All");
   const filtered = useMemo(
     () => (active === "All" ? gridProjects : gridProjects.filter((p) => p.category === active)),
-    [active]
+    [active],
   );
 
   return (
@@ -35,14 +35,20 @@ export default function Projects() {
         </div>
 
         {/* Filter chips */}
-        <div role="group" aria-label="Filter projects by category" className="mt-14 flex flex-wrap justify-center gap-2">
+        <div
+          role="group"
+          aria-label="Filter projects by category"
+          className="mt-14 flex flex-wrap justify-center gap-2"
+        >
           {categories.map((c) => (
             <button
               key={c}
               onClick={() => setActive(c)}
               aria-pressed={active === c}
               className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
-                active === c ? "bg-accent text-accent-contrast" : "glass text-text-muted hover:text-text"
+                active === c
+                  ? "bg-accent text-accent-contrast"
+                  : "glass text-text-muted hover:text-text"
               }`}
             >
               {c}

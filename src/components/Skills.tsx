@@ -14,8 +14,8 @@ export default function Skills() {
             A versatile toolkit for modern product teams.
           </h2>
           <p className="mt-4 text-base text-text-muted sm:text-lg">
-            From front-end polish to resilient serverless back-ends and automation pipelines —
-            the right tool for the outcome, not the other way around.
+            From front-end polish to resilient serverless back-ends and automation pipelines — the
+            right tool for the outcome, not the other way around.
           </p>
         </Reveal>
 

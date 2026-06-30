@@ -29,7 +29,10 @@ export default function Experience() {
                     <ul className="space-y-3 text-sm text-text-muted sm:text-base">
                       {exp.bullets.map((b) => (
                         <li key={b} className="flex gap-3">
-                          <CheckCircleIcon className="mt-1 h-4 w-4 flex-none text-text" aria-hidden="true" />
+                          <CheckCircleIcon
+                            className="mt-1 h-4 w-4 flex-none text-text"
+                            aria-hidden="true"
+                          />
                           <span className="leading-relaxed">{b}</span>
                         </li>
                       ))}
@@ -37,10 +40,12 @@ export default function Experience() {
                   </div>
                   <div className="flex flex-col gap-3 rounded-2xl border border-glass bg-(--bg-elev) p-6 text-sm text-text-muted">
                     <div className="flex items-center gap-2">
-                      <CalendarIcon className="h-5 w-5 text-text" aria-hidden="true" /> <span>{exp.period}</span>
+                      <CalendarIcon className="h-5 w-5 text-text" aria-hidden="true" />{" "}
+                      <span>{exp.period}</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <MapPinIcon className="h-5 w-5 text-text" aria-hidden="true" /> <span>{exp.location}</span>
+                      <MapPinIcon className="h-5 w-5 text-text" aria-hidden="true" />{" "}
+                      <span>{exp.location}</span>
                     </div>
                   </div>
                 </div>

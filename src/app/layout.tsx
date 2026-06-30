@@ -13,9 +13,22 @@ export const metadata: Metadata = {
   description:
     "Software developer with 2+ years building serverless cloud systems, full-stack web apps, and automation pipelines. AWS, FastAPI, Python, C#/.NET, Playwright. CCNA certified.",
   keywords: [
-    "Software Developer", "Full Stack Developer", "Automation Engineer",
-    "AWS", "Serverless", "Python", "C#", ".NET", "Playwright", "FastAPI",
-    "React", "Next.js", "Computer Vision", "CCNA", "Honduras", "Remote Developer",
+    "Software Developer",
+    "Full Stack Developer",
+    "Automation Engineer",
+    "AWS",
+    "Serverless",
+    "Python",
+    "C#",
+    ".NET",
+    "Playwright",
+    "FastAPI",
+    "React",
+    "Next.js",
+    "Computer Vision",
+    "CCNA",
+    "Honduras",
+    "Remote Developer",
   ],
   authors: [{ name: "Bryan Alexis Mejía Fonseca" }],
   creator: "Bryan Alexis Mejía Fonseca",
@@ -47,14 +60,16 @@ export const metadata: Metadata = {
   },
 };
 
-
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: noFlashScript }} />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`} suppressHydrationWarning>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        suppressHydrationWarning
+      >
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -65,7 +80,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
               jobTitle: "Software Developer",
               url: "https://portfolio-alexis-mejia.vercel.app",
               email: "bryamejia@gmail.com",
-              address: { "@type": "PostalAddress", addressLocality: "Tegucigalpa", addressCountry: "HN" },
+              address: {
+                "@type": "PostalAddress",
+                addressLocality: "Tegucigalpa",
+                addressCountry: "HN",
+              },
               sameAs: ["https://github.com/alexismejiaf", "https://linkedin.com/in/alexismejiaf"],
             }),
           }}

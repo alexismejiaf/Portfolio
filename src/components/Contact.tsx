@@ -1,4 +1,9 @@
-import { ArrowTopRightOnSquareIcon, EnvelopeIcon, MapPinIcon, PhoneIcon } from "@heroicons/react/24/outline";
+import {
+  ArrowTopRightOnSquareIcon,
+  EnvelopeIcon,
+  MapPinIcon,
+  PhoneIcon,
+} from "@heroicons/react/24/outline";
 import GlassCard from "./ui/GlassCard";
 import Reveal from "./ui/Reveal";
 import { profile } from "@/data/profile";
@@ -7,8 +12,20 @@ const items = [
   { label: "Location", value: profile.location, icon: MapPinIcon },
   { label: "Phone", value: profile.phone, icon: PhoneIcon, href: profile.phoneHref },
   { label: "Email", value: profile.email, icon: EnvelopeIcon, href: `mailto:${profile.email}` },
-  { label: "LinkedIn", value: "linkedin.com/in/alexismejiaf", icon: ArrowTopRightOnSquareIcon, href: profile.links.linkedin, external: true },
-  { label: "GitHub", value: "github.com/alexismejiaf", icon: ArrowTopRightOnSquareIcon, href: profile.links.github, external: true },
+  {
+    label: "LinkedIn",
+    value: "linkedin.com/in/alexismejiaf",
+    icon: ArrowTopRightOnSquareIcon,
+    href: profile.links.linkedin,
+    external: true,
+  },
+  {
+    label: "GitHub",
+    value: "github.com/alexismejiaf",
+    icon: ArrowTopRightOnSquareIcon,
+    href: profile.links.github,
+    external: true,
+  },
 ];
 
 export default function Contact() {
@@ -37,7 +54,9 @@ export default function Contact() {
                     <>
                       <Icon className="h-5 w-5 flex-none text-text" aria-hidden="true" />
                       <div>
-                        <p className="text-xs uppercase tracking-wider text-text-muted">{item.label}</p>
+                        <p className="text-xs uppercase tracking-wider text-text-muted">
+                          {item.label}
+                        </p>
                         <p className="text-sm font-semibold text-text">{item.value}</p>
                       </div>
                     </>
@@ -53,7 +72,10 @@ export default function Contact() {
                       {inner}
                     </a>
                   ) : (
-                    <div key={item.label} className="flex items-center gap-3 rounded-2xl border border-glass bg-(--bg-elev) px-4 py-4 text-text">
+                    <div
+                      key={item.label}
+                      className="flex items-center gap-3 rounded-2xl border border-glass bg-(--bg-elev) px-4 py-4 text-text"
+                    >
                       {inner}
                     </div>
                   );
@@ -68,8 +90,8 @@ export default function Contact() {
                 <p className="text-base font-semibold text-text">Proven professional impact</p>
                 <p className="mt-3 leading-relaxed">
                   2+ years delivering production systems at Rita Group and Sumadi. I pair fresh
-                  perspective with hands-on experience building scalable, automated platforms — ready
-                  to collaborate with founders, designers, and platform teams.
+                  perspective with hands-on experience building scalable, automated platforms —
+                  ready to collaborate with founders, designers, and platform teams.
                 </p>
               </div>
               <a

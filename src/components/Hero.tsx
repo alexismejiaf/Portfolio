@@ -3,8 +3,11 @@
 import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
 import {
-  ArrowDownIcon, ArrowUpRightIcon, DocumentArrowDownIcon,
-  EnvelopeIcon, MapPinIcon,
+  ArrowDownIcon,
+  ArrowUpRightIcon,
+  DocumentArrowDownIcon,
+  EnvelopeIcon,
+  MapPinIcon,
 } from "@heroicons/react/24/outline";
 import GlassCard from "./ui/GlassCard";
 import MagneticButton from "./ui/MagneticButton";
@@ -13,7 +16,11 @@ import { profile } from "@/data/profile";
 export default function Hero() {
   const reduce = useReducedMotion();
   return (
-    <section id="home" className="relative isolate overflow-hidden pt-32 sm:pt-40" aria-label="Introduction">
+    <section
+      id="home"
+      className="relative isolate overflow-hidden pt-32 sm:pt-40"
+      aria-label="Introduction"
+    >
       {/* Remotion liquid-glass background */}
       <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
         <video
@@ -67,7 +74,9 @@ export default function Hero() {
               <DocumentArrowDownIcon className="h-4 w-4" aria-hidden="true" /> Download CV
             </MagneticButton>
             <MagneticButton
-              href={profile.links.github} external ariaLabel="GitHub profile"
+              href={profile.links.github}
+              external
+              ariaLabel="GitHub profile"
               className="glass inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-text"
             >
               GitHub <ArrowUpRightIcon className="h-4 w-4" aria-hidden="true" />
@@ -76,10 +85,15 @@ export default function Hero() {
 
           <div className="grid gap-3 sm:grid-cols-2">
             <div className="glass flex items-center gap-3 rounded-2xl px-4 py-3 text-sm text-text">
-              <MapPinIcon className="h-5 w-5 text-text-muted" aria-hidden="true" /> {profile.location}
+              <MapPinIcon className="h-5 w-5 text-text-muted" aria-hidden="true" />{" "}
+              {profile.location}
             </div>
-            <a href={`mailto:${profile.email}`} className="glass glass-interactive flex items-center gap-3 rounded-2xl px-4 py-3 text-sm text-text">
-              <EnvelopeIcon className="h-5 w-5 text-text-muted" aria-hidden="true" /> {profile.email}
+            <a
+              href={`mailto:${profile.email}`}
+              className="glass glass-interactive flex items-center gap-3 rounded-2xl px-4 py-3 text-sm text-text"
+            >
+              <EnvelopeIcon className="h-5 w-5 text-text-muted" aria-hidden="true" />{" "}
+              {profile.email}
             </a>
           </div>
         </motion.div>
@@ -98,7 +112,9 @@ export default function Hero() {
                   fill
                   sizes="64px"
                   className="object-cover"
-                  onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
+                  onError={(e) => {
+                    (e.currentTarget as HTMLImageElement).style.display = "none";
+                  }}
                 />
               </div>
               <div>

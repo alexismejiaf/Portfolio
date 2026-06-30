@@ -14,7 +14,13 @@ type MagneticButtonProps = {
 };
 
 export default function MagneticButton({
-  children, href, onClick, className = "", ariaLabel, external, download,
+  children,
+  href,
+  onClick,
+  className = "",
+  ariaLabel,
+  external,
+  download,
 }: MagneticButtonProps) {
   const reduce = useReducedMotion();
   const ref = useRef<HTMLElement>(null);
@@ -29,7 +35,10 @@ export default function MagneticButton({
     x.set((e.clientX - (rect.left + rect.width / 2)) * 0.3);
     y.set((e.clientY - (rect.top + rect.height / 2)) * 0.3);
   }
-  function onLeave() { x.set(0); y.set(0); }
+  function onLeave() {
+    x.set(0);
+    y.set(0);
+  }
 
   const Comp = motion[href ? "a" : "button"] as typeof motion.a;
   return (

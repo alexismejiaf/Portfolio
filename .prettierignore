@@ -1,0 +1,15 @@
+.next
+node_modules
+public
+*.lock
+bun.lock
+bun.lockb
+package-lock.json
+.vercel
+.agents
+.claude
+.superpowers
+out
+build
+coverage
+CHANGELOG.md
