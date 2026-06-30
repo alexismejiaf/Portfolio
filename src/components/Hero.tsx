@@ -111,6 +111,7 @@ export default function Hero() {
                   alt={profile.name}
                   fill
                   sizes="64px"
+                  priority
                   className="object-cover"
                   onError={(e) => {
                     (e.currentTarget as HTMLImageElement).style.display = "none";
