@@ -42,6 +42,13 @@ test.describe("smoke", () => {
     expect(data.name).toBeTruthy();
   });
 
+  test("hero photo falls back to initials when image fails to load", async ({ page }) => {
+    await page.route("**/_next/image**", (route) => route.abort());
+    await page.route("**/profile.png", (route) => route.abort());
+    await page.goto("/");
+    await expect(page.getByRole("img", { name: /Bryan Alexis Mejía Fonseca/i })).toBeVisible();
+  });
+
   test("sitemap.xml and robots.txt are reachable", async ({ request }) => {
     const sitemap = await request.get("/sitemap.xml");
     expect(sitemap.ok()).toBe(true);
