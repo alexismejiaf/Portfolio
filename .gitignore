@@ -34,6 +34,14 @@ bun-debug.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# playwright
+/playwright-report
+/test-results
+/playwright/.cache
+
+# lighthouse
+/.lighthouseci
+
 # tooling / local agent scaffolding
 /.agents
 /.superpowers
