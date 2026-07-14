@@ -1,8 +1,17 @@
 import { test, expect } from "@playwright/test";
 
+// Nav collapses to the hamburger menu below Tailwind's `md:` breakpoint
+// (768px) — see the `md:hidden` / `md:flex` classes in Navigation.tsx.
+const NAV_BREAKPOINT = 768;
+
+function isDesktopNavViewport() {
+  const width = test.info().project.use.viewport?.width ?? 0;
+  return width >= NAV_BREAKPOINT;
+}
+
 test.describe("navigation", () => {
   test("desktop nav anchors scroll to matching section", async ({ page }) => {
-    test.skip(test.info().project.name === "mobile-chrome", "desktop-only");
+    test.skip(!isDesktopNavViewport(), "desktop-nav-only");
     await page.goto("/");
 
     for (const id of ["about", "skills", "experience", "projects", "contact"]) {
@@ -13,7 +22,7 @@ test.describe("navigation", () => {
   });
 
   test("mobile menu toggles open and closed", async ({ page }) => {
-    test.skip(test.info().project.name !== "mobile-chrome", "mobile-only");
+    test.skip(isDesktopNavViewport(), "mobile-nav-only");
     await page.goto("/");
 
     const toggle = page.getByRole("button", { name: /toggle navigation menu/i });

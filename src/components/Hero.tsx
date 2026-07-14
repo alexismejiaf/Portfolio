@@ -1,8 +1,3 @@
-"use client";
-
-import { useState } from "react";
-import Image from "next/image";
-import { motion, useReducedMotion } from "motion/react";
 import {
   ArrowDownIcon,
   ArrowUpRightIcon,
@@ -12,11 +7,12 @@ import {
 } from "@heroicons/react/24/outline";
 import GlassCard from "./ui/GlassCard";
 import MagneticButton from "./ui/MagneticButton";
+import FadeIn from "./ui/FadeIn";
+import HeroAvatar from "./HeroAvatar";
+import HeroVideoBackground from "./HeroVideoBackground";
 import { profile } from "@/data/profile";
 
 export default function Hero() {
-  const reduce = useReducedMotion();
-  const [photoFailed, setPhotoFailed] = useState(false);
   return (
     <section
       id="home"
@@ -25,29 +21,13 @@ export default function Hero() {
     >
       {/* Remotion liquid-glass background */}
       <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="none"
-          poster="/hero-poster.jpg"
-          className="h-full w-full object-cover opacity-60 motion-reduce:hidden light:hidden"
-        >
-          <source src="/hero-loop.webm" type="video/webm" />
-          <source src="/hero-loop.mp4" type="video/mp4" />
-        </video>
+        <HeroVideoBackground />
         <div className="hidden h-full w-full bg-(--bg-elev) motion-reduce:block" />
         <div className="absolute inset-0 bg-(--bg)/40" />
       </div>
 
       <div className="mx-auto grid max-w-6xl items-center gap-14 px-4 sm:px-6 lg:grid-cols-[1.4fr_1fr] lg:px-8">
-        <motion.div
-          initial={reduce ? false : { opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="space-y-8"
-        >
+        <FadeIn y={24} className="space-y-8">
           <span className="glass inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-text-muted">
             {profile.role}
           </span>
@@ -98,36 +78,12 @@ export default function Hero() {
               {profile.email}
             </a>
           </div>
-        </motion.div>
+        </FadeIn>
 
-        <motion.div
-          initial={reduce ? false : { opacity: 0, scale: 0.96 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-        >
+        <FadeIn scale={0.96} delay={0.15}>
           <GlassCard className="p-8">
             <div className="flex items-center gap-4">
-              <div className="glass relative flex h-16 w-16 items-center justify-center overflow-hidden rounded-2xl">
-                {photoFailed ? (
-                  <span
-                    role="img"
-                    aria-label={profile.name}
-                    className="text-base font-semibold text-text"
-                  >
-                    {profile.initials}
-                  </span>
-                ) : (
-                  <Image
-                    src={profile.photoPath}
-                    alt={profile.name}
-                    fill
-                    sizes="64px"
-                    priority
-                    className="object-cover"
-                    onError={() => setPhotoFailed(true)}
-                  />
-                )}
-              </div>
+              <HeroAvatar />
               <div>
                 <p className="text-base font-semibold text-text">{profile.shortName}</p>
                 <p className="text-sm text-text-muted">{profile.role}</p>
@@ -145,7 +101,7 @@ export default function Hero() {
               {profile.current}
             </p>
           </GlassCard>
-        </motion.div>
+        </FadeIn>
       </div>
 
       <div className="mt-16 flex justify-center">
