@@ -27,20 +27,26 @@ export default function Hero() {
       </div>
 
       <div className="mx-auto grid max-w-6xl items-center gap-14 px-4 sm:px-6 lg:grid-cols-[1.4fr_1fr] lg:px-8">
-        <FadeIn y={24} className="space-y-8">
-          <span className="glass inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-text-muted">
-            {profile.role}
-          </span>
+        <div className="space-y-8">
+          <FadeIn y={20}>
+            <span className="glass inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-text-muted">
+              {profile.role}
+            </span>
+          </FadeIn>
           <div className="space-y-5">
-            <h1 className="text-4xl font-semibold leading-tight text-text sm:text-5xl lg:text-6xl">
-              Hi, I&apos;m {profile.shortName}.
-              <br />
-              {profile.tagline}
-            </h1>
-            <p className="max-w-2xl text-base text-text-muted sm:text-lg">{profile.summary}</p>
+            <FadeIn y={20} delay={0.08}>
+              <h1 className="text-4xl font-semibold leading-tight text-text sm:text-5xl lg:text-6xl">
+                Hi, I&apos;m {profile.shortName}.
+                <br />
+                {profile.tagline}
+              </h1>
+            </FadeIn>
+            <FadeIn y={20} delay={0.16}>
+              <p className="max-w-2xl text-base text-text-muted sm:text-lg">{profile.summary}</p>
+            </FadeIn>
           </div>
 
-          <div className="flex flex-wrap items-center gap-3">
+          <FadeIn y={20} delay={0.24} className="flex flex-wrap items-center gap-3">
             <MagneticButton
               href={`mailto:${profile.email}`}
               ariaLabel="Send email"
@@ -63,9 +69,9 @@ export default function Hero() {
             >
               GitHub <ArrowUpRightIcon className="h-4 w-4" aria-hidden="true" />
             </MagneticButton>
-          </div>
+          </FadeIn>
 
-          <div className="grid gap-3 sm:grid-cols-2">
+          <FadeIn y={20} delay={0.32} className="grid gap-3 sm:grid-cols-2">
             <div className="glass flex items-center gap-3 rounded-2xl px-4 py-3 text-sm text-text">
               <MapPinIcon className="h-5 w-5 text-text-muted" aria-hidden="true" />{" "}
               {profile.location}
@@ -77,10 +83,10 @@ export default function Hero() {
               <EnvelopeIcon className="h-5 w-5 text-text-muted" aria-hidden="true" />{" "}
               {profile.email}
             </a>
-          </div>
-        </FadeIn>
+          </FadeIn>
+        </div>
 
-        <FadeIn scale={0.96} delay={0.15}>
+        <FadeIn scale={0.96} delay={0.2}>
           <GlassCard className="p-8">
             <div className="flex items-center gap-4">
               <HeroAvatar />

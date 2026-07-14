@@ -21,4 +21,27 @@ test.describe("theme toggle", () => {
     const afterReload = await html.getAttribute("data-theme");
     expect(afterReload).toBe(stored);
   });
+
+  test("first visit matches the system color scheme", async ({ page }) => {
+    await page.emulateMedia({ colorScheme: "dark" });
+    await page.goto("/");
+    await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+
+    await page.emulateMedia({ colorScheme: "light" });
+    await page.reload();
+    await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
+  });
+
+  test("toggling back to the system theme clears the override", async ({ page }) => {
+    await page.goto("/");
+    const toggle = page.getByRole("button", { name: /switch to (light|dark) mode/i });
+
+    // First toggle moves away from the system theme -> override stored
+    await toggle.click();
+    await expect.poll(() => page.evaluate(() => localStorage.getItem("theme"))).not.toBeNull();
+
+    // Second toggle returns to the system theme -> override removed
+    await toggle.click();
+    await expect.poll(() => page.evaluate(() => localStorage.getItem("theme"))).toBeNull();
+  });
 });

@@ -5,6 +5,7 @@
 /* ---- Design tokens ---- */
 :root,
 [data-theme="dark"] {
+  color-scheme: dark;
   --bg: #0a0a0b;
   --bg-elev: #121214;
   --glass-bg: rgba(255, 255, 255, 0.08);
@@ -20,6 +21,7 @@
 }
 
 [data-theme="light"] {
+  color-scheme: light;
   --bg: #f5f0e6;
   --bg-elev: #fbf7ee;
   --glass-bg: rgba(255, 255, 255, 0.6);
@@ -63,6 +65,12 @@ body {
   transition:
     background-color 0.4s ease,
     color 0.4s ease;
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
 }
 
 ::selection {
@@ -132,6 +140,34 @@ body {
   opacity: 0.5;
 }
 
+/* ---- Theme switch: circular reveal (View Transitions API) ---- */
+/* --vt-x/--vt-y/--vt-r are set by ThemeProvider from the toggle button position. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-new(root) {
+  animation: theme-reveal 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes theme-reveal {
+  from {
+    clip-path: circle(0px at var(--vt-x, 50%) var(--vt-y, 50%));
+  }
+  to {
+    clip-path: circle(var(--vt-r, 120vmax) at var(--vt-x, 50%) var(--vt-y, 50%));
+  }
+}
+
+/* While the reveal runs, per-element color transitions would make the new
+   snapshot animate a second time — suppress them. */
+[data-theme-switching],
+[data-theme-switching] *,
+[data-theme-switching] *::before,
+[data-theme-switching] *::after {
+  transition: none !important;
+}
+
 /* ---- Reduced motion ---- */
 @media (prefers-reduced-motion: reduce) {
   html {
@@ -146,5 +182,9 @@ body {
   }
   .glass-interactive:hover::after {
     opacity: 0;
+  }
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
   }
 }

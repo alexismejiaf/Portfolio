@@ -11,7 +11,10 @@ export default function ThemeToggle() {
 
   return (
     <button
-      onClick={toggle}
+      onClick={(e) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        toggle({ x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 });
+      }}
       aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
       className="glass glass-interactive inline-flex h-10 w-10 items-center justify-center rounded-full text-text transition-colors hover:bg-(--glass-bg-strong)"
     >
