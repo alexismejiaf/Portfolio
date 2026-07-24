@@ -4,7 +4,7 @@ import { describe, expect, it, vi } from "vitest";
 const { contextRevert, fromTo, matchMedia, mediaAdd, mediaRevert, registerPlugin } = vi.hoisted(
   () => {
     const contextRevert = vi.fn();
-    const mediaAdd = vi.fn();
+    const mediaAdd = vi.fn((_query: string, callback: () => void) => callback());
     const mediaRevert = vi.fn();
 
     return {
@@ -35,14 +35,31 @@ vi.mock("gsap/ScrollTrigger", () => ({ ScrollTrigger: {} }));
 import CinematicReveal from "./CinematicReveal";
 
 describe("CinematicReveal", () => {
-  it("renders, registers only no-preference motion, and cleans up", () => {
+  it("renders, registers animation for no-preference motion, and cleans up", () => {
     const { unmount } = render(<CinematicReveal>Content</CinematicReveal>);
 
-    expect(screen.getByText("Content")).toHaveAttribute("data-cinematic-reveal");
+    const root = screen.getByText("Content");
+    expect(root).toHaveAttribute("data-cinematic-reveal");
     expect(mediaAdd).toHaveBeenCalledTimes(1);
     expect(mediaAdd).toHaveBeenCalledWith(
       "(prefers-reduced-motion: no-preference)",
       expect.any(Function),
+    );
+    expect(fromTo).toHaveBeenCalledWith(
+      root,
+      { autoAlpha: 0, y: 28 },
+      {
+        autoAlpha: 1,
+        y: 0,
+        delay: 0,
+        duration: 0.8,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: root,
+          start: "top 82%",
+          once: true,
+        },
+      },
     );
 
     unmount();
