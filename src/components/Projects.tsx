@@ -1,20 +1,58 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ProjectCard from "./ProjectCard";
 import Reveal from "./ui/Reveal";
 import { featuredProjects, gridProjects, categories } from "@/data/projects";
 
+gsap.registerPlugin(ScrollTrigger);
+
 export default function Projects() {
   const [active, setActive] = useState("All");
+  const projectsRef = useRef<HTMLElement>(null);
+  const featuredRef = useRef<HTMLDivElement>(null);
   const filtered = useMemo(
     () => (active === "All" ? gridProjects : gridProjects.filter((p) => p.category === active)),
     [active],
   );
 
+  useLayoutEffect(() => {
+    const media = gsap.matchMedia();
+    const context = gsap.context(() => {
+      media.add("(min-width: 1024px) and (prefers-reduced-motion: no-preference)", () => {
+        const items = featuredRef.current?.querySelectorAll<HTMLElement>("[data-featured-project]");
+        if (!items?.length) return;
+
+        gsap
+          .timeline({
+            scrollTrigger: {
+              trigger: featuredRef.current,
+              start: "top top",
+              end: "+=100%",
+              pin: true,
+              scrub: true,
+            },
+          })
+          .to(items, { yPercent: -18, opacity: 0.35, stagger: 0.15, ease: "none" });
+      });
+    }, projectsRef);
+
+    return () => {
+      media.revert();
+      context.revert();
+    };
+  }, []);
+
   return (
-    <section id="projects" className="relative" aria-labelledby="projects-heading">
+    <section
+      ref={projectsRef}
+      id="projects"
+      className="relative"
+      aria-labelledby="projects-heading"
+    >
       <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
         <Reveal className="text-center">
           <span className="glass inline-flex rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.4em] text-text-muted">
@@ -26,11 +64,13 @@ export default function Projects() {
         </Reveal>
 
         {/* Featured */}
-        <div className="mt-14 grid gap-6 lg:grid-cols-3">
+        <div ref={featuredRef} className="mt-14 grid gap-6 lg:grid-cols-3">
           {featuredProjects.map((p, i) => (
-            <Reveal key={p.id} delay={i * 0.05}>
-              <ProjectCard project={p} featured />
-            </Reveal>
+            <div key={p.id} data-featured-project>
+              <Reveal delay={i * 0.05}>
+                <ProjectCard project={p} featured />
+              </Reveal>
+            </div>
           ))}
         </div>
 

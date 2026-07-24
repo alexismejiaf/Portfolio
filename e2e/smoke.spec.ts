@@ -49,6 +49,23 @@ test.describe("smoke", () => {
     }
   });
 
+  test("featured projects remain unpinned on a 390px viewport", async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto("/");
+
+    await expect(page.locator("[data-featured-project]")).toHaveCount(3);
+    await expect(page.locator(".pin-spacer")).toHaveCount(0);
+  });
+
+  test("featured projects pin into a desktop scroll sequence", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.emulateMedia({ reducedMotion: "no-preference" });
+    await page.goto("/");
+
+    await expect(page.locator("[data-featured-project]")).toHaveCount(3);
+    await expect(page.locator(".pin-spacer")).toHaveCount(1);
+  });
+
   test("no console errors on load", async ({ page }) => {
     const errors: string[] = [];
     page.on("console", (msg) => {
