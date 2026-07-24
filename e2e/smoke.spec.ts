@@ -36,6 +36,7 @@ test.describe("smoke", () => {
 
     await expect(page.locator("[data-hero-role]")).toHaveCount(1);
     await expect(page.locator("[data-hero-heading]")).toHaveCount(1);
+    await expect(page.locator("[data-hero-summary]")).toHaveCount(1);
     await expect(page.locator("[data-hero-actions]")).toHaveCount(1);
     await expect(page.locator("[data-hero-profile]")).toHaveCount(1);
   });
