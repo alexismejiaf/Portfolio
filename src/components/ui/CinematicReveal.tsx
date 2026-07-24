@@ -21,7 +21,7 @@ export default function CinematicReveal({ children, className, delay = 0 }: Cine
       media.add("(prefers-reduced-motion: no-preference)", () => {
         gsap.fromTo(
           root.current,
-          { autoAlpha: 0, y: 28 },
+          { opacity: 0, y: 28 },
           {
             autoAlpha: 1,
             y: 0,

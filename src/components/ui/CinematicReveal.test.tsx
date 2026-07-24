@@ -47,7 +47,7 @@ describe("CinematicReveal", () => {
     );
     expect(fromTo).toHaveBeenCalledWith(
       root,
-      { autoAlpha: 0, y: 28 },
+      { opacity: 0, y: 28 },
       {
         autoAlpha: 1,
         y: 0,
