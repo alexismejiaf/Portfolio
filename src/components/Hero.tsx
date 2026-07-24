@@ -1,3 +1,6 @@
+"use client";
+
+import { useLayoutEffect, useRef } from "react";
 import {
   ArrowDownIcon,
   ArrowUpRightIcon,
@@ -5,16 +8,40 @@ import {
   EnvelopeIcon,
   MapPinIcon,
 } from "@heroicons/react/24/outline";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import GlassCard from "./ui/GlassCard";
 import MagneticButton from "./ui/MagneticButton";
-import FadeIn from "./ui/FadeIn";
 import HeroAvatar from "./HeroAvatar";
 import HeroVideoBackground from "./HeroVideoBackground";
 import { profile } from "@/data/profile";
 
+gsap.registerPlugin(ScrollTrigger);
+
 export default function Hero() {
+  const heroRef = useRef<HTMLElement>(null);
+
+  useLayoutEffect(() => {
+    const context = gsap.context(() => {
+      const media = gsap.matchMedia();
+      media.add("(prefers-reduced-motion: no-preference)", () => {
+        gsap
+          .timeline({ defaults: { ease: "power3.out" } })
+          .from("[data-hero-role]", { autoAlpha: 0, y: 18, duration: 0.45 })
+          .from("[data-hero-heading]", { autoAlpha: 0, y: 34, duration: 0.7 }, "-=0.18")
+          .from("[data-hero-summary]", { autoAlpha: 0, y: 18, duration: 0.5 }, "-=0.42")
+          .from("[data-hero-actions]", { autoAlpha: 0, y: 18, duration: 0.5 }, "-=0.35")
+          .from("[data-hero-profile]", { autoAlpha: 0, x: 34, scale: 0.97, duration: 0.75 }, "<");
+      });
+      return () => media.revert();
+    }, heroRef);
+
+    return () => context.revert();
+  }, []);
+
   return (
     <section
+      ref={heroRef}
       id="home"
       className="relative isolate overflow-hidden pt-32 sm:pt-40"
       aria-label="Introduction"
@@ -28,25 +55,27 @@ export default function Hero() {
 
       <div className="mx-auto grid max-w-6xl items-center gap-14 px-4 sm:px-6 lg:grid-cols-[1.4fr_1fr] lg:px-8">
         <div className="space-y-8">
-          <FadeIn y={20}>
-            <span className="glass inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-text-muted">
-              {profile.role}
-            </span>
-          </FadeIn>
+          <span
+            className="glass inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-text-muted"
+            data-hero-role
+          >
+            {profile.role}
+          </span>
           <div className="space-y-5">
-            <FadeIn y={20} delay={0.08}>
-              <h1 className="text-4xl font-semibold leading-tight text-text sm:text-5xl lg:text-6xl">
-                Hi, I&apos;m {profile.shortName}.
-                <br />
-                {profile.tagline}
-              </h1>
-            </FadeIn>
-            <FadeIn y={20} delay={0.16}>
-              <p className="max-w-2xl text-base text-text-muted sm:text-lg">{profile.summary}</p>
-            </FadeIn>
+            <h1
+              className="text-4xl font-semibold leading-tight text-text sm:text-5xl lg:text-6xl"
+              data-hero-heading
+            >
+              Hi, I&apos;m {profile.shortName}.
+              <br />
+              {profile.tagline}
+            </h1>
+            <p className="max-w-2xl text-base text-text-muted sm:text-lg" data-hero-summary>
+              {profile.summary}
+            </p>
           </div>
 
-          <FadeIn y={20} delay={0.24} className="flex flex-wrap items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3" data-hero-actions>
             <MagneticButton
               href={`mailto:${profile.email}`}
               ariaLabel="Send email"
@@ -69,9 +98,9 @@ export default function Hero() {
             >
               GitHub <ArrowUpRightIcon className="h-4 w-4" aria-hidden="true" />
             </MagneticButton>
-          </FadeIn>
+          </div>
 
-          <FadeIn y={20} delay={0.32} className="grid gap-3 sm:grid-cols-2">
+          <div className="grid gap-3 sm:grid-cols-2">
             <div className="glass flex items-center gap-3 rounded-2xl px-4 py-3 text-sm text-text">
               <MapPinIcon className="h-5 w-5 text-text-muted" aria-hidden="true" />{" "}
               {profile.location}
@@ -83,10 +112,10 @@ export default function Hero() {
               <EnvelopeIcon className="h-5 w-5 text-text-muted" aria-hidden="true" />{" "}
               {profile.email}
             </a>
-          </FadeIn>
+          </div>
         </div>
 
-        <FadeIn scale={0.96} delay={0.2}>
+        <div data-hero-profile>
           <GlassCard className="p-8">
             <div className="flex items-center gap-4">
               <HeroAvatar />
@@ -107,7 +136,7 @@ export default function Hero() {
               {profile.current}
             </p>
           </GlassCard>
-        </FadeIn>
+        </div>
       </div>
 
       <div className="mt-16 flex justify-center">

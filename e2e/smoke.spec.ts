@@ -31,6 +31,15 @@ test.describe("smoke", () => {
     }
   });
 
+  test("hero exposes ordered cinematic timeline targets", async ({ page }) => {
+    await page.goto("/");
+
+    await expect(page.locator("[data-hero-role]")).toHaveCount(1);
+    await expect(page.locator("[data-hero-heading]")).toHaveCount(1);
+    await expect(page.locator("[data-hero-actions]")).toHaveCount(1);
+    await expect(page.locator("[data-hero-profile]")).toHaveCount(1);
+  });
+
   test("no console errors on load", async ({ page }) => {
     const errors: string[] = [];
     page.on("console", (msg) => {
