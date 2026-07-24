@@ -41,6 +41,14 @@ test.describe("smoke", () => {
     await expect(page.locator("[data-hero-profile]")).toHaveCount(1);
   });
 
+  test("secondary sections expose cinematic reveal targets", async ({ page }) => {
+    await page.goto("/");
+
+    for (const id of ["about", "skills", "experience", "contact"]) {
+      await expect(page.locator(`#${id} [data-cinematic-reveal]`).first()).toBeAttached();
+    }
+  });
+
   test("no console errors on load", async ({ page }) => {
     const errors: string[] = [];
     page.on("console", (msg) => {

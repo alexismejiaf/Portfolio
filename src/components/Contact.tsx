@@ -5,7 +5,7 @@ import {
   PhoneIcon,
 } from "@heroicons/react/24/outline";
 import GlassCard from "./ui/GlassCard";
-import Reveal from "./ui/Reveal";
+import CinematicReveal from "./ui/CinematicReveal";
 import { profile } from "@/data/profile";
 
 const items = [
@@ -32,7 +32,7 @@ export default function Contact() {
   return (
     <section id="contact" className="relative" aria-labelledby="contact-heading">
       <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
-        <Reveal className="text-center">
+        <CinematicReveal className="text-center">
           <span className="glass inline-flex rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.4em] text-text-muted">
             Contact
           </span>
@@ -42,10 +42,10 @@ export default function Contact() {
           <p className="mx-auto mt-4 max-w-2xl text-base text-text-muted sm:text-lg">
             Open to full-time, freelance, and remote-first collaborations.
           </p>
-        </Reveal>
+        </CinematicReveal>
 
         <div className="mt-14 grid gap-8 lg:grid-cols-[0.55fr_0.45fr]">
-          <Reveal>
+          <CinematicReveal>
             <GlassCard className="p-8">
               <div className="space-y-4">
                 {items.map((item) => {
@@ -82,9 +82,9 @@ export default function Contact() {
                 })}
               </div>
             </GlassCard>
-          </Reveal>
+          </CinematicReveal>
 
-          <Reveal delay={0.05}>
+          <CinematicReveal delay={0.05}>
             <GlassCard className="flex h-full flex-col justify-between gap-6 p-8 text-sm text-text-muted">
               <div>
                 <p className="text-base font-semibold text-text">Proven professional impact</p>
@@ -102,7 +102,7 @@ export default function Contact() {
                 Download CV
               </a>
             </GlassCard>
-          </Reveal>
+          </CinematicReveal>
         </div>
       </div>
 

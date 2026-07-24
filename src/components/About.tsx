@@ -5,7 +5,7 @@ import {
   SparklesIcon,
 } from "@heroicons/react/24/outline";
 import GlassCard from "./ui/GlassCard";
-import Reveal from "./ui/Reveal";
+import CinematicReveal from "./ui/CinematicReveal";
 
 const highlights = [
   "Designing secure, scalable serverless systems with a human-centered experience.",
@@ -22,7 +22,7 @@ export default function About() {
   return (
     <section id="about" className="relative" aria-labelledby="about-heading">
       <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
-        <Reveal className="space-y-5 text-center">
+        <CinematicReveal className="space-y-5 text-center">
           <span className="glass inline-flex rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.4em] text-text-muted">
             About
           </span>
@@ -33,11 +33,11 @@ export default function About() {
             A Tegucigalpa-based software developer working at the intersection of cloud, automation,
             and user-first interfaces — from rapid prototypes to production systems.
           </p>
-        </Reveal>
+        </CinematicReveal>
 
         <div className="mt-14 grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
           <div className="space-y-8">
-            <Reveal>
+            <CinematicReveal>
               <GlassCard className="p-8">
                 <span className="inline-flex items-center gap-2 text-sm font-semibold text-text">
                   <SparklesIcon className="h-4 w-4" aria-hidden="true" /> What drives me
@@ -51,10 +51,10 @@ export default function About() {
                   ))}
                 </ul>
               </GlassCard>
-            </Reveal>
+            </CinematicReveal>
 
             <div className="grid gap-6 md:grid-cols-2">
-              <Reveal delay={0.05}>
+              <CinematicReveal delay={0.05}>
                 <GlassCard className="h-full p-6">
                   <AcademicCapIcon className="h-6 w-6 text-text-muted" aria-hidden="true" />
                   <p className="mt-4 text-xs uppercase tracking-wider text-text-muted">Education</p>
@@ -64,8 +64,8 @@ export default function About() {
                   <p className="mt-2 text-sm text-text-muted">UNITEC — Tegucigalpa, Honduras</p>
                   <p className="text-sm text-text-muted">Graduated 2023</p>
                 </GlassCard>
-              </Reveal>
-              <Reveal delay={0.1}>
+              </CinematicReveal>
+              <CinematicReveal delay={0.1}>
                 <GlassCard className="h-full p-6">
                   <CheckBadgeIcon className="h-6 w-6 text-text-muted" aria-hidden="true" />
                   <p className="mt-4 text-xs uppercase tracking-wider text-text-muted">
@@ -78,11 +78,11 @@ export default function About() {
                     CCNA — networking, routing, and security fundamentals.
                   </p>
                 </GlassCard>
-              </Reveal>
+              </CinematicReveal>
             </div>
           </div>
 
-          <Reveal delay={0.1}>
+          <CinematicReveal delay={0.1}>
             <GlassCard className="h-full p-8">
               <span className="inline-flex items-center gap-2 text-sm font-semibold text-text">
                 <GlobeAltIcon className="h-5 w-5" aria-hidden="true" /> Languages
@@ -111,7 +111,7 @@ export default function About() {
                 ))}
               </div>
             </GlassCard>
-          </Reveal>
+          </CinematicReveal>
         </div>
       </div>
     </section>

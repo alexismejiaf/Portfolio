@@ -1,12 +1,12 @@
 import GlassCard from "./ui/GlassCard";
-import Reveal from "./ui/Reveal";
+import CinematicReveal from "./ui/CinematicReveal";
 import { skillCategories } from "@/data/skills";
 
 export default function Skills() {
   return (
     <section id="skills" className="relative" aria-labelledby="skills-heading">
       <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
-        <Reveal className="mx-auto max-w-3xl text-center">
+        <CinematicReveal className="mx-auto max-w-3xl text-center">
           <span className="glass inline-flex rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.4em] text-text-muted">
             Skillset
           </span>
@@ -17,11 +17,11 @@ export default function Skills() {
             From front-end polish to resilient serverless back-ends and automation pipelines — the
             right tool for the outcome, not the other way around.
           </p>
-        </Reveal>
+        </CinematicReveal>
 
         <div className="mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {skillCategories.map((category, i) => (
-            <Reveal key={category.title} delay={i * 0.05}>
+            <CinematicReveal key={category.title} delay={i * 0.05}>
               <GlassCard className="h-full p-7">
                 <p className="text-xs uppercase tracking-wider text-text-muted">Category</p>
                 <h3 className="mt-1 text-xl font-semibold text-text">{category.title}</h3>
@@ -36,7 +36,7 @@ export default function Skills() {
                   ))}
                 </div>
               </GlassCard>
-            </Reveal>
+            </CinematicReveal>
           ))}
         </div>
       </div>
