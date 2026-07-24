@@ -25,9 +25,10 @@ test.describe("smoke", () => {
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto("/");
 
-    await expect(page.locator("#home h1")).toHaveCSS("opacity", "1");
-    await expect(page.locator("#skills h2")).toHaveCSS("opacity", "1");
-    await expect(page.locator("#projects h2")).toHaveCSS("opacity", "1");
+    for (const heading of ["#home h1", "#skills h2", "#projects h2"]) {
+      await expect(page.locator(heading)).toBeVisible();
+      await expect(page.locator(heading)).toHaveCSS("opacity", "1");
+    }
   });
 
   test("no console errors on load", async ({ page }) => {
