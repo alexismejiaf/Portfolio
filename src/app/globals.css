@@ -39,7 +39,7 @@
   --ring: rgba(26, 26, 26, 0.45);
   --shadow: 0 20px 60px -25px rgba(90, 75, 50, 0.35);
   --nav-frost-bg: rgba(251, 247, 238, 0.88);
-  --nav-frost-bg-over-hero: rgba(251, 247, 238, 0.54);
+  --nav-frost-bg-over-hero: rgba(251, 247, 238, 0.9);
   --nav-frost-border: rgba(30, 26, 20, 0.14);
   --nav-frost-shadow: 0 16px 42px -24px rgba(90, 75, 50, 0.45);
 }
