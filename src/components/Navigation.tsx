@@ -50,14 +50,17 @@ export default function Navigation() {
   const reduce = useReducedMotion();
 
   useEffect(() => {
-    const about = document.getElementById("about");
-    if (!about) return;
+    const hero = document.getElementById("home");
+    if (!hero) return;
 
-    const observer = new IntersectionObserver(([entry]) => {
-      setIsOverHero(!entry.isIntersecting);
-    });
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsOverHero(entry.boundingClientRect.bottom > 80);
+      },
+      { rootMargin: "-80px 0px 0px" },
+    );
 
-    observer.observe(about);
+    observer.observe(hero);
     return () => observer.disconnect();
   }, []);
 

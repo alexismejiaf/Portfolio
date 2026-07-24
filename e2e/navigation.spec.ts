@@ -18,6 +18,9 @@ test.describe("navigation", () => {
 
     await page.locator("#about").scrollIntoViewIfNeeded();
     await expect(nav).toHaveAttribute("data-over-hero", "false");
+
+    await page.locator("#projects").evaluate((section) => section.scrollIntoView());
+    await expect(nav).toHaveAttribute("data-over-hero", "false");
   });
 
   test("desktop nav anchors scroll to matching section", async ({ page }) => {
