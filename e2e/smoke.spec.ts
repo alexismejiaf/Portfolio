@@ -21,6 +21,15 @@ test.describe("smoke", () => {
     await expect(page.getByRole("navigation", { name: /main navigation/i })).toBeVisible();
   });
 
+  test("reduced motion leaves cinematic content visible", async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.goto("/");
+
+    await expect(page.locator("#home h1")).toHaveCSS("opacity", "1");
+    await expect(page.locator("#skills h2")).toHaveCSS("opacity", "1");
+    await expect(page.locator("#projects h2")).toHaveCSS("opacity", "1");
+  });
+
   test("no console errors on load", async ({ page }) => {
     const errors: string[] = [];
     page.on("console", (msg) => {
