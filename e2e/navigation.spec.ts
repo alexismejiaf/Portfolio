@@ -10,6 +10,16 @@ function isDesktopNavViewport() {
 }
 
 test.describe("navigation", () => {
+  test("adapts frost after the hero", async ({ page }) => {
+    await page.goto("/");
+
+    const nav = page.getByRole("navigation", { name: /main navigation/i });
+    await expect(nav).toHaveAttribute("data-over-hero", "true");
+
+    await page.locator("#about").scrollIntoViewIfNeeded();
+    await expect(nav).toHaveAttribute("data-over-hero", "false");
+  });
+
   test("desktop nav anchors scroll to matching section", async ({ page }) => {
     test.skip(!isDesktopNavViewport(), "desktop-nav-only");
     await page.goto("/");

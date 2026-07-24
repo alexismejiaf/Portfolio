@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import ThemeToggle from "./theme/ThemeToggle";
@@ -45,17 +45,34 @@ const menuItemVariants = {
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isOverHero, setIsOverHero] = useState(true);
   const active = useActiveSection(NAV_IDS);
   const reduce = useReducedMotion();
 
+  useEffect(() => {
+    const about = document.getElementById("about");
+    if (!about) return;
+
+    const observer = new IntersectionObserver(([entry]) => {
+      setIsOverHero(!entry.isIntersecting);
+    });
+
+    observer.observe(about);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <nav className="fixed inset-x-0 top-0 z-50" aria-label="Main navigation">
+    <nav
+      className="fixed inset-x-0 top-0 z-50"
+      aria-label="Main navigation"
+      data-over-hero={isOverHero}
+    >
       <div className="mx-auto mt-3 max-w-6xl px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={reduce ? false : { y: -24, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="glass flex h-14 items-center justify-between rounded-full px-4 sm:px-6"
+          className="nav-frost flex h-14 items-center justify-between rounded-full px-4 sm:px-6"
         >
           <a href="#home" className="flex items-center gap-3">
             <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-accent text-sm font-semibold text-accent-contrast">
@@ -99,7 +116,7 @@ export default function Navigation() {
               aria-label="Toggle navigation menu"
               aria-expanded={isOpen}
               aria-controls="mobile-menu"
-              className="glass inline-flex h-10 w-10 items-center justify-center rounded-full text-text md:hidden"
+              className="nav-frost-control inline-flex h-10 w-10 items-center justify-center rounded-full text-text md:hidden"
             >
               {isOpen ? <XMarkIcon className="h-5 w-5" /> : <Bars3Icon className="h-5 w-5" />}
             </button>
@@ -115,7 +132,7 @@ export default function Navigation() {
               animate="open"
               exit="exit"
               style={{ transformOrigin: "top center" }}
-              className="glass mt-2 space-y-1 rounded-3xl p-3 md:hidden"
+              className="nav-frost nav-frost-menu mt-2 space-y-1 rounded-3xl p-3 md:hidden"
             >
               {navItems.map((item) => (
                 <motion.a

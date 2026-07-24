@@ -18,6 +18,10 @@
   --accent-contrast: #0a0a0b;
   --ring: rgba(255, 255, 255, 0.55);
   --shadow: 0 20px 60px -20px rgba(0, 0, 0, 0.7);
+  --nav-frost-bg: rgba(18, 18, 20, 0.8);
+  --nav-frost-bg-over-hero: rgba(10, 10, 11, 0.42);
+  --nav-frost-border: rgba(255, 255, 255, 0.16);
+  --nav-frost-shadow: 0 16px 42px -20px rgba(0, 0, 0, 0.85);
 }
 
 [data-theme="light"] {
@@ -34,6 +38,10 @@
   --accent-contrast: #f5f0e6;
   --ring: rgba(26, 26, 26, 0.45);
   --shadow: 0 20px 60px -25px rgba(90, 75, 50, 0.35);
+  --nav-frost-bg: rgba(251, 247, 238, 0.88);
+  --nav-frost-bg-over-hero: rgba(251, 247, 238, 0.54);
+  --nav-frost-border: rgba(30, 26, 20, 0.14);
+  --nav-frost-shadow: 0 16px 42px -24px rgba(90, 75, 50, 0.45);
 }
 
 /* ---- Map tokens to Tailwind theme ---- */
@@ -138,6 +146,36 @@ h3 {
 }
 .glass-interactive:hover::after {
   opacity: 0.5;
+}
+
+/* ---- Adaptive navigation frost ---- */
+.nav-frost,
+.nav-frost-control {
+  position: relative;
+  background: var(--nav-frost-bg);
+  border: 1px solid var(--nav-frost-border);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  box-shadow: var(--nav-frost-shadow);
+}
+
+nav[data-over-hero="true"] .nav-frost,
+nav[data-over-hero="true"] .nav-frost-control {
+  background: var(--nav-frost-bg-over-hero);
+}
+
+.nav-frost-control {
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+@media (max-width: 767px) {
+  .nav-frost-menu {
+    background: var(--nav-frost-bg);
+    backdrop-filter: blur(28px) saturate(165%);
+    -webkit-backdrop-filter: blur(28px) saturate(165%);
+  }
 }
 
 /* ---- Theme switch: circular reveal (View Transitions API) ---- */
